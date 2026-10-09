@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nxttalent | Open the door to your next step</title>
+<meta name="description" content="nxttalent matches students in Maastricht and South Limburg with part-time jobs, internships and traineeships. Both sides like, a match opens the door to an interview.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232A1640'/%3E%3Cpath d='M17 48V30a15 15 0 0 1 30 0v18h-8.200V30a6.800 6.800 0 0 0-13.600 0v18z' fill='%23FBF5EC'/%3E%3Ccircle cx='32' cy='43.800' r='4.200' fill='%23FF5A36'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#2A1640; --coral:#FF5A36; --coral-light:#FF7A5C; --cream:#FBF5EC; --sand:#EADCC8;
+  --paper:#FFFDF9; --plum-soft:#5F4C73; --plum-line:#463259; --sand-line:#E3D5C0;
+  --arch:999px 999px 18px 18px;
+  --pattern:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='118' viewBox='0 0 104 118'%3E%3Cpath d='M26 92V52a26 26 0 0 1 52 0v40' fill='none' stroke='%23FBF5EC' stroke-opacity='.09' stroke-width='5'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--plum);font-family:"Bricolage Grotesque",Arial,sans-serif;font-optical-sizing:auto;font-size:17px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1160px,100% - 40px);margin-inline:auto}
+.muted{color:var(--plum-soft)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+
+/* logo */
+.logo{display:inline-flex;align-items:baseline;font-weight:700;font-size:30px;letter-spacing:-.035em;line-height:1;text-decoration:none;color:inherit;background:none;border:0;padding:0}
+.logo svg{height:.6em;width:auto;margin-right:.02em;flex:none}
+.logo .arch{fill:currentColor}.logo .dot{fill:var(--coral)}
+
+/* header */
+.top{position:sticky;top:0;z-index:40;background:var(--cream);border-bottom:1px solid var(--sand-line)}
+.top .wrap{display:flex;align-items:center;gap:20px;min-height:72px}
+.top nav{margin-left:auto;display:flex;align-items:center;gap:6px}
+.navlink{background:none;border:0;padding:10px 12px;font-weight:600;font-size:16px;border-radius:999px}
+.navlink:hover{background:var(--sand)}
+.lang{display:flex;border:1px solid var(--sand-line);border-radius:999px;padding:3px;margin-left:6px}
+.lang button{border:0;background:none;padding:5px 10px;border-radius:999px;font-size:13px;font-weight:600;color:var(--plum-soft)}
+.lang button[aria-pressed=true]{background:var(--plum);color:var(--cream)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:13px 24px;font-weight:700;font-size:16px;line-height:1.2;text-decoration:none}
+.btn-coral{background:var(--coral);color:var(--plum)}
+.btn-coral:hover{background:var(--coral-light)}
+.btn-plum{background:var(--plum);color:var(--cream)}
+.btn-plum:hover{background:#3b2358}
+.btn-sand{background:var(--sand);color:var(--plum)}
+.btn-sand:hover{background:#dfceb5}
+.btn-line{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn-sm{padding:9px 16px;font-size:14px}
+.demo-btn{background:none;border:0;padding:4px 0;font-size:14px;font-weight:500;color:var(--plum-soft);text-decoration:underline dashed;text-underline-offset:4px}
+.demo-btn:hover{color:var(--plum)}
+
+/* home */
+.hero{padding:64px 0 72px}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.display{font-weight:800;font-size:clamp(46px,7.4vw,96px);line-height:.94;letter-spacing:-.04em}
+.hero p{font-size:21px;max-width:30em;margin-top:26px;color:var(--plum-soft)}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:32px}
+.hero .cta .btn{padding:16px 28px;font-size:18px}
+.hero small{display:block;margin-top:18px;font-size:14px;color:var(--plum-soft)}
+.door{position:relative;background:var(--sand);border-radius:var(--arch);aspect-ratio:10/11;max-width:460px;margin-left:auto;width:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 26px 26px}
+.door .mini{background:var(--paper);border-radius:20px;padding:16px 18px;box-shadow:0 14px 34px rgba(42,22,64,.14)}
+.door .mini + .mini{margin-top:-6px;margin-left:34px;background:var(--plum);color:var(--cream);position:relative}
+.door .mini b{display:block;font-size:17px;line-height:1.25}
+.door .mini span{font-size:14px;opacity:.8}
+.door .status{display:flex;align-items:center;gap:10px;font-weight:700;font-size:26px;letter-spacing:-.02em;margin:18px 0 0 34px}
+.cdot{width:.62em;height:.62em;border-radius:50%;background:var(--coral);display:inline-block;flex:none}
+
+.band{background:var(--plum) var(--pattern);color:var(--cream);padding:76px 0}
+.h1{font-weight:700;font-size:clamp(32px,4.4vw,52px);line-height:1.02;letter-spacing:-.03em}
+.h2{font-weight:600;font-size:24px;line-height:1.2;letter-spacing:-.015em}
+.steps{list-style:none;padding:0;margin:44px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s}
+.steps li{counter-increment:s;border-top:2px solid var(--coral-light);padding:18px 24px 0 0}
+.steps li::before{content:counter(s);display:block;font-weight:800;font-size:44px;line-height:1;letter-spacing:-.03em;color:var(--coral-light);margin-bottom:12px}
+.steps p{color:#d9cfe3;font-size:16px;margin-top:6px}
+
+.doors{padding:84px 0}
+.doors .wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.side{border-radius:160px 160px 24px 24px;padding:92px 40px 40px;display:flex;flex-direction:column;gap:18px}
+.side.s{background:var(--sand)}
+.side.e{background:var(--plum);color:var(--cream)}
+.side ul{margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:17px}
+.side li{display:flex;gap:12px;align-items:baseline}
+.side li::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor;flex:none;transform:translateY(-1px)}
+.side .btn{align-self:flex-start;margin-top:8px}
+
+.pricing{padding:0 0 88px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.plan{background:var(--paper);border:1px solid var(--sand-line);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:6px}
+.plan.on{border:2px solid var(--plum);padding:27px}
+.plan .price{font-weight:800;font-size:42px;letter-spacing:-.03em;line-height:1.1;margin-top:10px}
+.plan .price small{font-size:15px;font-weight:500;letter-spacing:0;color:var(--plum-soft)}
+.plan ul{margin:14px 0 20px;padding:16px 0 0;list-style:none;border-top:1px solid var(--sand-line);display:grid;gap:8px;font-size:16px}
+.plan .btn{margin-top:auto}
+.tag{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;background:var(--sand);border-radius:999px;padding:4px 11px;align-self:flex-start}
+.fine{font-size:14px;color:var(--plum-soft);margin-top:18px}
+
+footer{background:var(--plum);color:var(--cream);padding:48px 0 40px}
+footer .wrap{display:flex;gap:28px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap}
+footer p{font-size:14px;color:#cfc3db;max-width:44em;margin-top:14px}
+
+/* app shell */
+.demo-bar{background:var(--sand);font-size:15px}
+.demo-bar .wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:10px 0}
+.demo-bar p{flex:1;min-width:240px}
+.seg{display:inline-flex;background:var(--paper);border-radius:999px;padding:4px;border:1px solid var(--sand-line)}
+.seg button{border:0;background:none;border-radius:999px;padding:8px 16px;font-weight:600;font-size:15px}
+.seg button[aria-pressed=true]{background:var(--plum);color:var(--cream)}
+.app{padding:34px 0 90px;min-height:70vh}
+.who{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.who h1{font-weight:700;font-size:clamp(26px,3.4vw,38px);letter-spacing:-.025em;line-height:1.05}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--sand-line);overflow-x:auto;margin-bottom:30px}
+.tabs button{border:0;background:none;padding:12px 16px;font-weight:600;font-size:16px;white-space:nowrap;color:var(--plum-soft);border-bottom:3px solid transparent;margin-bottom:-1px;display:flex;gap:8px;align-items:center}
+.tabs button[aria-selected=true]{color:var(--plum);border-bottom-color:var(--plum)}
+.count{background:var(--plum);color:var(--cream);border-radius:999px;font-size:12px;min-width:21px;height:21px;display:inline-grid;place-items:center;padding:0 6px;font-weight:700}
+
+.avatar{width:64px;height:72px;border-radius:999px 999px 10px 10px;background:var(--sand);display:grid;place-items:center;font-weight:700;font-size:20px;flex:none;padding-top:8px}
+.avatar.lg{width:96px;height:108px;font-size:30px}
+.avatar.dark{background:var(--plum);color:var(--cream)}
+.mark{width:56px;height:56px;border-radius:14px;background:var(--plum);color:var(--cream);display:grid;place-items:center;font-weight:700;font-size:18px;flex:none}
+.mark.lg{width:72px;height:72px;font-size:22px;border-radius:18px}
+
+/* deck */
+.deck-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{border:1px solid var(--sand-line);background:var(--paper);border-radius:999px;padding:8px 15px;font-size:15px;font-weight:600}
+.pill[aria-pressed=true]{background:var(--plum);color:var(--cream);border-color:var(--plum)}
+.deck{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);gap:40px;align-items:start}
+.card{background:var(--paper);border:1px solid var(--sand-line);border-radius:28px;padding:30px;box-shadow:0 20px 50px rgba(42,22,64,.08);transition:transform .22s ease,opacity .22s ease}
+.card.out-like{transform:translateX(70px) rotate(4deg);opacity:0}
+.card.out-skip{transform:translateX(-70px) rotate(-4deg);opacity:0}
+.card-top{display:flex;gap:16px;align-items:center}
+.card h2{font-weight:700;font-size:clamp(26px,3.2vw,34px);line-height:1.08;letter-spacing:-.025em;margin-top:20px}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--sand-line);border:1px solid var(--sand-line);border-radius:16px;overflow:hidden;margin:20px 0}
+.facts div{background:var(--paper);padding:12px 16px}
+.facts dt{font-size:13px;font-weight:500;color:var(--plum-soft)}
+.facts dd{margin:0;font-weight:600;font-size:17px}
+dl{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--cream);border:1px solid var(--sand-line);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:500}
+.chip.hit{background:var(--plum);color:var(--cream);border-color:var(--plum)}
+.fit{background:var(--cream);border-radius:16px;padding:14px 16px;margin-top:20px}
+.fit strong{font-weight:800;font-size:24px;letter-spacing:-.02em}
+.fit ul{margin:6px 0 0;padding:0;list-style:none;font-size:15px;color:var(--plum-soft);display:flex;flex-wrap:wrap;gap:4px 16px}
+.fit li::before{content:"✓ ";font-weight:700;color:var(--plum)}
+.acts{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:22px}
+.acts .btn{padding:16px;font-size:18px}
+.note{display:flex;gap:10px;align-items:center;font-weight:600;font-size:15px;background:var(--plum);color:var(--cream);border-radius:12px;padding:9px 14px;margin-bottom:18px}
+.aside h3{font-weight:600;font-size:20px;margin-bottom:10px}
+.aside ol{margin:0;padding-left:20px;color:var(--plum-soft);display:grid;gap:8px;font-size:16px}
+.aside .next{margin-top:26px;border-top:1px solid var(--sand-line);padding-top:18px}
+.aside .next li{color:var(--plum)}
+.empty{border:1.5px dashed #cdbba1;border-radius:24px;padding:44px 28px;text-align:center}
+.empty p{color:var(--plum-soft);max-width:30em;margin:8px auto 18px}
+
+/* lists */
+.sec-title{font-weight:600;font-size:22px;letter-spacing:-.015em;margin:0 0 4px}
+.sec-sub{color:var(--plum-soft);font-size:16px;margin-bottom:16px}
+.rows{display:grid;gap:10px;margin-bottom:40px}
+.row{background:var(--paper);border:1px solid var(--sand-line);border-radius:20px;padding:16px 18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.row .main{flex:1;min-width:220px}
+.row .main b{display:block;font-size:18px;line-height:1.25}
+.row .main span{font-size:15px;color:var(--plum-soft)}
+.row .end{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.score{font-weight:700;font-size:15px;background:var(--cream);border-radius:999px;padding:5px 12px;white-space:nowrap}
+
+/* pipeline */
+.pipe{background:var(--paper);border:1px solid var(--sand-line);border-radius:24px;padding:24px;margin-bottom:14px}
+.pipe.done{background:var(--plum);color:var(--cream);border-color:var(--plum)}
+.pipe-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.pipe-top .main{flex:1;min-width:200px}
+.pipe-top b{font-size:20px;display:block;line-height:1.2}
+.pipe-top span{font-size:15px;opacity:.75}
+.track{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr)}
+.track li{position:relative;padding-top:22px;font-size:14px;font-weight:500;opacity:.55}
+.track li::before{content:"";position:absolute;top:5px;left:0;right:0;height:2px;background:currentColor;opacity:.3}
+.track li::after{content:"";position:absolute;top:0;left:0;width:12px;height:12px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 2px currentColor}
+.pipe.done .track li::after{background:var(--plum)}
+.track li.past{opacity:1}
+.track li.past::after{background:currentColor}
+.track li.now{opacity:1;font-weight:700}
+.track li.now::after{background:var(--coral);box-shadow:0 0 0 4px rgba(255,90,54,.22);}
+.step{margin-top:20px;padding-top:18px;border-top:1px solid var(--sand-line);display:flex;gap:12px 18px;align-items:center;flex-wrap:wrap}
+.pipe.done .step{border-top-color:var(--plum-line)}
+.step p{flex:1;min-width:220px}
+.slots{display:flex;gap:8px;flex-wrap:wrap}
+.hired{display:flex;align-items:center;gap:10px;font-weight:700;font-size:28px;letter-spacing:-.02em}
+
+/* forms */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid2 .full{grid-column:1/-1}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:5px}
+.in{width:100%;border:1px solid #d6c6ae;background:var(--paper);border-radius:12px;padding:12px 14px;font-size:16px}
+.in:focus{outline:2px solid var(--plum);outline-offset:1px}
+.panel{background:var(--paper);border:1px solid var(--sand-line);border-radius:24px;padding:28px}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.check{position:relative}
+.check input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.check span{display:block;border:1px solid #d6c6ae;border-radius:999px;padding:7px 14px;font-size:15px;font-weight:500;background:var(--paper)}
+.check input:checked + span{background:var(--plum);color:var(--cream);border-color:var(--plum)}
+.check input:focus-visible + span{outline:3px solid var(--coral);outline-offset:2px}
+.two{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}
+
+/* match overlay + toast */
+.overlay{position:fixed;inset:0;z-index:80;background:var(--plum) var(--pattern);color:var(--cream);display:grid;place-items:center;padding:24px;text-align:center}
+.overlay[hidden]{display:none}
+.overlay .pair{display:flex;justify-content:center;align-items:flex-end;gap:0;margin-bottom:34px;position:relative}
+.overlay .avatar,.overlay .bigmark{width:128px;height:146px;border-radius:999px 999px 14px 14px;display:grid;place-items:center;font-weight:700;font-size:38px;padding-top:12px}
+.overlay .avatar{background:var(--sand);color:var(--plum);animation:inL .55s cubic-bezier(.2,.9,.3,1.2) both}
+.overlay .bigmark{background:var(--cream);color:var(--plum);animation:inR .55s cubic-bezier(.2,.9,.3,1.2) both}
+.overlay .pair .cdot{width:30px;height:30px;margin:0 -9px 0;position:relative;z-index:2;animation:pop .35s .45s both}
+.overlay h2{font-weight:800;font-size:clamp(48px,9vw,104px);letter-spacing:-.04em;line-height:.95}
+.overlay p{font-size:20px;color:#d9cfe3;max-width:28em;margin:18px auto 30px}
+.overlay .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@keyframes inL{from{transform:translateX(-90px);opacity:0}}
+@keyframes inR{from{transform:translateX(90px);opacity:0}}
+@keyframes pop{from{transform:scale(0)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--plum);color:var(--cream);padding:13px 20px;border-radius:999px;font-weight:600;font-size:15px;z-index:90;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(42,22,64,.3)}
+.toast[hidden]{display:none}
+
+@media (max-width:900px){
+  .hero .wrap,.doors .wrap,.deck,.two{grid-template-columns:1fr}
+  .door{margin:0 auto;max-width:380px}
+  .steps{grid-template-columns:1fr 1fr;gap:28px 0}
+  .plans{grid-template-columns:1fr}
+  .side{border-radius:120px 120px 24px 24px;padding:76px 28px 32px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{width:calc(100% - 32px)}
+  .top .wrap{min-height:62px;gap:8px}
+  .logo{font-size:24px}
+  .navlink.hide-s{display:none}
+  .hero{padding:40px 0 52px}
+  .hero p{font-size:18px}
+  .steps{grid-template-columns:1fr}
+  .card{padding:22px;border-radius:24px}
+  .grid2{grid-template-columns:1fr}
+  .track li{font-size:0;padding-top:16px}
+  .track li.now{font-size:13px;white-space:nowrap}
+  .panel{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" id="top"></div></header>
+<div id="bar"></div>
+<main id="app"></main>
+<footer id="foot"></footer>
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden></div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+/* =====================================================================
+   nxttalent demo. Static prototype: sample data, no backend.
+   All state lives in the browser (localStorage), so it runs on GitHub Pages.
+   ===================================================================== */
+
+/* ---------- Sample data (fictional people and companies) ---------- */
+const COMPANIES = {
+  c1:{name:"Fietshuis Sint Pieter", ini:"FS", city:"Maastricht", about:{en:"Bike shop and webshop with 14 staff.", nl:"Fietsenwinkel en webshop met 14 medewerkers."}},
+  c2:{name:"Studio Mergel", ini:"SM", city:"Maastricht", about:{en:"Design and marketing studio for local brands.", nl:"Ontwerp- en marketingbureau voor lokale merken."}},
+  c3:{name:"Heuvelland Zorggroep", ini:"HZ", city:"Heerlen", about:{en:"Home care organisation with 6 teams.", nl:"Thuiszorgorganisatie met 6 teams."}},
+  c4:{name:"Geul Data", ini:"GD", city:"Sittard", about:{en:"Software company building dashboards for SMEs.", nl:"Softwarebedrijf dat dashboards bouwt voor het mkb."}},
+  c5:{name:"Bakkerij Vrijthof", ini:"BV", city:"Maastricht", about:{en:"Family bakery with 3 shops in the city.", nl:"Familiebakkerij met 3 winkels in de stad."}},
+  c6:{name:"Parkstad Logistics", ini:"PL", city:"Kerkrade", about:{en:"Warehousing and transport for webshops.", nl:"Opslag en transport voor webshops."}}
+};
+const BASE_JOBS = [
+  {id:"j1",co:"c1",title:{en:"Webshop and marketing assistant",nl:"Assistent webshop en marketing"},type:"parttime",field:"Marketing",city:"Maastricht",hmin:8,hmax:12,pay:14.5,per:"h",start:{en:"November",nl:"November"},skills:["Social media","Canva","Copywriting","SEO"]},
+  {id:"j2",co:"c1",title:{en:"Operations intern, stock and planning",nl:"Stagiair operations, voorraad en planning"},type:"internship",field:"Business",city:"Maastricht",hmin:24,hmax:32,pay:500,per:"m",start:{en:"February",nl:"Februari"},skills:["Excel","Planning","Data analysis"]},
+  {id:"j3",co:"c2",title:{en:"Junior content creator",nl:"Junior contentmaker"},type:"parttime",field:"Marketing",city:"Maastricht",hmin:10,hmax:16,pay:15,per:"h",start:{en:"Right away",nl:"Per direct"},skills:["Canva","Copywriting","Social media","Video editing"]},
+  {id:"j4",co:"c4",title:{en:"Data analyst intern",nl:"Stagiair data-analist"},type:"internship",field:"IT",city:"Sittard",hmin:32,hmax:40,pay:650,per:"m",start:{en:"February",nl:"Februari"},skills:["SQL","Python","Excel","Data analysis"]},
+  {id:"j5",co:"c4",title:{en:"Front-end developer",nl:"Front-end developer"},type:"parttime",field:"IT",city:"Sittard",hmin:12,hmax:16,pay:18,per:"h",start:{en:"November",nl:"November"},skills:["JavaScript","HTML/CSS","React"]},
+  {id:"j6",co:"c3",title:{en:"Planning assistant",nl:"Assistent planning"},type:"parttime",field:"Healthcare",city:"Heerlen",hmin:8,hmax:16,pay:15.2,per:"h",start:{en:"Right away",nl:"Per direct"},skills:["Planning","Excel","Dutch"]},
+  {id:"j7",co:"c5",title:{en:"Weekend shop team member",nl:"Weekendmedewerker winkel"},type:"parttime",field:"Retail",city:"Maastricht",hmin:8,hmax:12,pay:13.8,per:"h",start:{en:"Right away",nl:"Per direct"},skills:["Customer service","Dutch","English"]},
+  {id:"j8",co:"c6",title:{en:"Supply chain trainee",nl:"Trainee supply chain"},type:"traineeship",field:"Business",city:"Kerkrade",hmin:32,hmax:40,pay:2400,per:"m",start:{en:"January",nl:"Januari"},skills:["Excel","Planning","Data analysis","English"]},
+  {id:"j9",co:"c2",title:{en:"Market research intern",nl:"Stagiair marktonderzoek"},type:"internship",field:"Business",city:"Maastricht",hmin:16,hmax:24,pay:450,per:"m",start:{en:"February",nl:"Februari"},skills:["Research","Excel","Presenting","English"]}
+];
+const STUDENTS = {
+  s1:{name:"Sanne de Vries",ini:"SV",study:{en:"BSc International Business, year 2",nl:"BSc International Business, jaar 2"},school:"Maastricht University",city:"Maastricht",hours:16,types:["parttime","internship"],fields:["Business","Marketing"],skills:["Excel","Social media","Canva","Copywriting","English","Dutch"],langs:{en:"Dutch, English",nl:"Nederlands, Engels"},bio:{en:"Ran the Instagram account of my study association for a year. I like work where I can see the result.",nl:"Ik beheerde een jaar het Instagram-account van mijn studievereniging. Ik hou van werk waarvan je het resultaat ziet."}},
+  s2:{name:"Daan Hermans",ini:"DH",study:{en:"HBO-ICT, year 3",nl:"HBO-ICT, jaar 3"},school:"Zuyd Hogeschool",city:"Heerlen",hours:40,types:["internship","parttime"],fields:["IT"],skills:["JavaScript","React","HTML/CSS","SQL"],langs:{en:"Dutch, English",nl:"Nederlands, Engels"},bio:{en:"Built two web apps for local sports clubs. Looking for a graduation internship.",nl:"Bouwde twee webapps voor lokale sportclubs. Zoekt een afstudeerstage."}},
+  s3:{name:"Lotte Janssen",ini:"LJ",study:{en:"Commercial Economics, year 2",nl:"Commerciële Economie, jaar 2"},school:"Zuyd Hogeschool",city:"Maastricht",hours:12,types:["parttime"],fields:["Marketing"],skills:["Social media","Canva","Video editing","SEO","Dutch"],langs:{en:"Dutch, English, German",nl:"Nederlands, Engels, Duits"},bio:{en:"Makes short videos for a local festival. Free on Thursdays and Fridays.",nl:"Maakt korte video's voor een lokaal festival. Vrij op donderdag en vrijdag."}},
+  s4:{name:"Milan Peeters",ini:"MP",study:{en:"MSc Business Intelligence and Smart Services",nl:"MSc Business Intelligence and Smart Services"},school:"Maastricht University",city:"Maastricht",hours:32,types:["internship","traineeship"],fields:["IT","Business"],skills:["SQL","Python","Excel","Data analysis"],langs:{en:"Dutch, English",nl:"Nederlands, Engels"},bio:{en:"Likes turning messy spreadsheets into dashboards people use.",nl:"Maakt van rommelige spreadsheets dashboards die mensen echt gebruiken."}},
+  s5:{name:"Noor El Amrani",ini:"NE",study:{en:"BSc Health Sciences, year 3",nl:"BSc Gezondheidswetenschappen, jaar 3"},school:"Maastricht University",city:"Maastricht",hours:12,types:["parttime"],fields:["Healthcare"],skills:["Planning","Excel","Customer service","Dutch","English"],langs:{en:"Dutch, English, Arabic",nl:"Nederlands, Engels, Arabisch"},bio:{en:"Two years of reception work at a physiotherapy practice.",nl:"Twee jaar baliewerk bij een fysiotherapiepraktijk."}},
+  s6:{name:"Tom Willems",ini:"TW",study:{en:"Logistics Management, year 4",nl:"Logistics Management, jaar 4"},school:"Zuyd Hogeschool",city:"Sittard",hours:40,types:["internship","traineeship"],fields:["Business"],skills:["Excel","Planning","Data analysis","English"],langs:{en:"Dutch, English",nl:"Nederlands, Engels"},bio:{en:"Worked in a warehouse for three summers, now wants to plan one.",nl:"Werkte drie zomers in een magazijn en wil er nu een plannen."}},
+  s7:{name:"Eva Smeets",ini:"ES",study:{en:"BA European Studies, year 1",nl:"BA European Studies, jaar 1"},school:"Maastricht University",city:"Maastricht",hours:10,types:["parttime"],fields:["Retail","Marketing"],skills:["Customer service","English","Dutch","Copywriting","Research"],langs:{en:"Dutch, English, French",nl:"Nederlands, Engels, Frans"},bio:{en:"Friendly with customers, quick with a till. Available at weekends.",nl:"Vriendelijk met klanten, snel aan de kassa. Beschikbaar in het weekend."}},
+  s8:{name:"Julia Kowalski",ini:"JK",study:{en:"BSc International Business, year 3",nl:"BSc International Business, jaar 3"},school:"Maastricht University",city:"Maastricht",hours:24,types:["internship"],fields:["Business"],skills:["Research","Excel","Presenting","English","Data analysis"],langs:{en:"Polish, English, Dutch (basic)",nl:"Pools, Engels, Nederlands (basis)"},bio:{en:"Did a market study for a start-up in her second year. Looking for an internship from February.",nl:"Deed in haar tweede jaar een marktonderzoek voor een start-up. Zoekt een stage vanaf februari."}}
+};
+const ME = "s1", MYCO = "c1";
+const FIELDS = ["Business","Marketing","IT","Healthcare","Retail"];
+const CITIES = ["Maastricht","Heerlen","Sittard","Kerkrade"];
+const TYPES = ["parttime","internship","traineeship"];
+const ALL_SKILLS = ["Excel","Social media","Canva","Copywriting","SEO","Video editing","Research","Presenting","Planning","Data analysis","Customer service","SQL","Python","JavaScript","HTML/CSS","React","Dutch","English"];
+const PLANS = {starter:{price:27.5,limit:1},growth:{price:49.99,limit:3},unlimited:{price:84.99,limit:Infinity}};
+const SEED = {
+  ls:{"s3|j1":1,"s7|j1":1,"s6|j2":1,"s8|j2":1,"s4|j2":1},   // students who already liked a job
+  lc:{"s1|j3":1,"s1|j7":1}                                   // companies that already liked a student for a job
+};
+
+/* ---------- Translations ---------- */
+const I18N = {
+en:{
+ nav_students:"Students", nav_employers:"Employers", nav_post:"Post a job", home:"Home",
+ hero_h:"Open the door to your next step.",
+ hero_p:"Students like the jobs they want. Companies like the students they want. When both say yes, you go straight to an interview.",
+ im_student:"I'm a student", im_hiring:"I'm hiring",
+ hero_small:"Part-time jobs, internships and traineeships in Maastricht and South Limburg.",
+ mini_job:"Junior content creator", mini_job_s:"Studio Mergel, 10 to 16 hours a week",
+ mini_stu:"Sanne de Vries", mini_stu_s:"International Business, Maastricht University",
+ matched_word:"Matched", hired_word:"Hired",
+ how_h:"How a match becomes a job",
+ s1_h:"Students like jobs", s1_p:"Every student gets a list of jobs that fit their study, skills, city and timetable. They like the ones they want.",
+ s2_h:"Companies like students", s2_p:"For each listing, companies see student profiles ranked by fit and like the ones they want to meet.",
+ s3_h:"Both said yes? Match", s3_p:"Each side sees who liked them. When the like goes both ways, the student is shortlisted for that job.",
+ s4_h:"Interview, offer, hired", s4_p:"The student picks an interview time. After that both sides follow the same steps until the contract is signed.",
+ stu_h:"For students", stu_l1:"Jobs picked for your study, skills and timetable", stu_l2:"See which companies liked your profile", stu_l3:"No cover letters. A match means an interview", stu_btn:"See jobs for you",
+ emp_h:"For employers", emp_l1:"Student profiles ranked for each listing", emp_l2:"See which students liked your job", emp_l3:"Only talk to students who also chose you", emp_btn:"See candidates",
+ price_h:"Plans for employers", price_p:"Free for students. Companies pay per month and can cancel any time.",
+ per_month:"per month",
+ p_starter:"Starter", p_growth:"Growth", p_unlimited:"Unlimited",
+ p_starter_d:"For one vacancy at a time.", p_growth_d:"For companies that hire students all year.", p_unlimited_d:"For a steady flow of student talent.",
+ f_1:"1 active listing", f_3:"3 active listings", f_u:"Unlimited listings", f_match:"Matching with student profiles", f_pipe:"Interview and offer steps", f_prio:"Higher in student suggestions", f_support:"Support by phone",
+ choose:"Choose", current_plan:"Your plan", most_chosen:"Most chosen",
+ price_fine:"This is a demo. No payment is taken.",
+ foot_tag:"Open the door to your next step.",
+ foot_note:"Prototype for a Strategic Entrepreneurship course. All students, companies and jobs shown are fictional sample data. Nothing you do here is sent anywhere; it is stored in this browser only.",
+ bar_student:"Demo. You are Sanne de Vries, a student in Maastricht. Switch to the employer view to answer as Fietshuis Sint Pieter.",
+ bar_employer:"Demo. You are Fietshuis Sint Pieter, a bike shop in Maastricht. Switch to the student view to answer as Sanne de Vries.",
+ view_student:"Student", view_employer:"Employer", reset:"Reset demo", reset_done:"Demo reset",
+ t_jobs:"Jobs for you", t_likes:"Likes", t_matches:"Matches", t_profile:"Profile",
+ t_cands:"Candidates", t_listings:"Listings", t_plans:"Plan",
+ view_stack:"One by one", view_list:"List",
+ skip:"Skip", like:"Like", like_back:"Like back", liked:"Liked",
+ hours:"Hours", pay:"Pay", place:"Place", start:"Start", per_h:"per hour", per_m:"per month", h_week:"h a week",
+ available:"Available", looking_for:"Looking for", languages:"Languages", up_to:"up to",
+ fit:"fit", r_field:"Matches the field of study", r_field_s:"Matches your study", r_skills:"{n} of {m} skills", r_city:"In {c}", r_region:"In South Limburg", r_hours:"Fits {h} h a week", r_type:"Right kind of job",
+ co_liked_you:"This company liked your profile", stu_liked_job:"Liked this job",
+ aside_h:"How this works", aside_s1:"Like the jobs you want. Skip the rest.", aside_s2:"The company sees your like on its listing.", aside_s3:"If it likes you back, you match and pick an interview time.",
+ aside_e1:"Pick a listing, then like the students you want to meet.", aside_e2:"The student sees that you liked their profile.", aside_e3:"If they like the job too, you match and they pick an interview time.",
+ up_next:"Up next",
+ empty_jobs_h:"You've seen every job", empty_jobs_p:"New jobs appear here as companies post them. Check your likes in the meantime.", see_likes:"See your likes", show_skipped:"Show skipped again",
+ empty_cands_h:"You've seen every student for this listing", empty_cands_p:"New profiles appear here as students sign up.",
+ liked_you_h:"Companies that liked your profile", liked_you_p:"Like the job back to match and go to the interview.",
+ you_liked_h:"Jobs you liked", you_liked_p:"Waiting for the company to answer.",
+ liked_job_h:"Students who liked your jobs", liked_job_p:"Like them back to match and offer an interview.",
+ you_liked_stu_h:"Students you liked", you_liked_stu_p:"Waiting for the student to answer.",
+ none_yet:"Nothing here yet.",
+ demo_co:"Demo: play the company's answer", demo_stu:"Demo: play the student's answer", demo_step:"Demo: play {n}'s step",
+ for_job:"for",
+ match_h:"It's a match.", match_p_s:"You and {co} both said yes to {job}. You're on the shortlist. Pick an interview time next.", match_p_e:"You and {st} both said yes to {job}. {st} is on your shortlist and can now pick an interview time.",
+ go_match:"Go to the match", keep_browsing:"Keep browsing",
+ st0:"Matched", st1:"Interview planned", st2:"Interview done", st3:"Offer", st4:"Hired",
+ a0_s:"Pick a time for your interview.", a0_e:"{n} is choosing one of the 3 times you offered.",
+ a1_s:"Your interview is on {d}.", a1_e:"Interview with {n} on {d}.", mark_done:"Mark interview as done",
+ a2_s:"Interview done. The company decides next.", a2_e:"How did it go? Send an offer to close the hire.", send_offer:"Send offer", offer_sent:"Offer sent",
+ a3_s:"{co} sent you an offer: {pay}, {hrs}.", a3_e:"Offer sent. Waiting for {n} to accept.", accept:"Accept offer",
+ a4_s:"You start at {co}. Start: {start}.", a4_e:"{n} starts with you. Start: {start}.",
+ no_matches_h:"No matches yet", no_matches_s:"A match appears here when you and a company both like the same job.", no_matches_e:"A match appears here when you and a student both say yes to a listing.",
+ profile_h:"Your profile", profile_p:"Companies see this. Your job suggestions change as soon as you save.",
+ study_fields:"Fields you want to work in", city:"City", max_hours:"Hours a week you can work", job_types:"Kind of work", skills:"Skills", save_profile:"Save profile", profile_saved:"Profile saved. Your suggestions are updated.",
+ parttime:"Part-time job", internship:"Internship", traineeship:"Traineeship",
+ listings_h:"Your listings", listing_meta:"Likes: {l}, matches: {m}", see_cands:"See candidates",
+ post_h:"Post a job", post_p:"Students see it in their suggestions straight away.",
+ j_title:"Job title", j_type:"Kind of work", j_field:"Field", j_city:"Place", j_hmin:"Hours a week, from", j_hmax:"Hours a week, up to", j_pay:"Pay in euros", j_per:"Paid", j_start:"Start", j_skills:"Skills you need", post_btn:"Post job", posted:"Posted. Students can see it now.",
+ limit_msg:"Your {p} plan covers {n} active listings. Switch plans to post more.", see_plans:"See plans",
+ plan_changed:"Plan changed to {p}", plan_h:"Your plan", plan_p:"You have {a} active listings.", unlimited_word:"unlimited",
+ signup_h:"Create a company account", signup_p:"What a new employer fills in. In this demo you're already signed in.", co_name:"Company name", work_email:"Work email", your_name:"Your name", create_acc:"Create account", acc_created:"Account created for {c}",
+ like_sent:"Liked. {n} can see it now.", skipped:"Skipped"
+},
+nl:{
+ nav_students:"Studenten", nav_employers:"Werkgevers", nav_post:"Plaats een vacature", home:"Home",
+ hero_h:"Open de deur naar je volgende stap.",
+ hero_p:"Studenten liken de banen die ze willen. Bedrijven liken de studenten die ze willen. Zeggen jullie allebei ja, dan ga je direct op gesprek.",
+ im_student:"Ik ben student", im_hiring:"Ik zoek studenten",
+ hero_small:"Bijbanen, stages en traineeships in Maastricht en Zuid-Limburg.",
+ mini_job:"Junior contentmaker", mini_job_s:"Studio Mergel, 10 tot 16 uur per week",
+ mini_stu:"Sanne de Vries", mini_stu_s:"International Business, Maastricht University",
+ matched_word:"Match", hired_word:"Aangenomen",
+ how_h:"Hoe een match een baan wordt",
+ s1_h:"Studenten liken banen", s1_p:"Elke student krijgt banen die passen bij studie, vaardigheden, stad en rooster. Ze liken de banen die ze willen.",
+ s2_h:"Bedrijven liken studenten", s2_p:"Per vacature zien bedrijven studentprofielen, gesorteerd op hoe goed ze passen, en liken wie ze willen spreken.",
+ s3_h:"Allebei ja? Match", s3_p:"Beide kanten zien wie hen heeft geliket. Is de like wederzijds, dan staat de student op de shortlist voor die baan.",
+ s4_h:"Gesprek, aanbod, aangenomen", s4_p:"De student kiest een tijd voor het gesprek. Daarna volgen beide kanten dezelfde stappen tot het contract getekend is.",
+ stu_h:"Voor studenten", stu_l1:"Banen die passen bij je studie, vaardigheden en rooster", stu_l2:"Zie welke bedrijven je profiel hebben geliket", stu_l3:"Geen motivatiebrieven. Een match is een gesprek", stu_btn:"Bekijk banen voor jou",
+ emp_h:"Voor werkgevers", emp_l1:"Studentprofielen gesorteerd per vacature", emp_l2:"Zie welke studenten je vacature hebben geliket", emp_l3:"Spreek alleen studenten die ook voor jou kiezen", emp_btn:"Bekijk kandidaten",
+ price_h:"Pakketten voor werkgevers", price_p:"Gratis voor studenten. Bedrijven betalen per maand en kunnen altijd opzeggen.",
+ per_month:"per maand",
+ p_starter:"Starter", p_growth:"Growth", p_unlimited:"Unlimited",
+ p_starter_d:"Voor één vacature tegelijk.", p_growth_d:"Voor bedrijven die het hele jaar studenten aannemen.", p_unlimited_d:"Voor een vaste stroom studententalent.",
+ f_1:"1 actieve vacature", f_3:"3 actieve vacatures", f_u:"Onbeperkt vacatures", f_match:"Matching met studentprofielen", f_pipe:"Stappen voor gesprek en aanbod", f_prio:"Hoger in suggesties voor studenten", f_support:"Telefonische support",
+ choose:"Kies", current_plan:"Je pakket", most_chosen:"Meest gekozen",
+ price_fine:"Dit is een demo. Er wordt niets afgeschreven.",
+ foot_tag:"Open de deur naar je volgende stap.",
+ foot_note:"Prototype voor het vak Strategic Entrepreneurship. Alle studenten, bedrijven en vacatures zijn fictieve voorbeelddata. Wat je hier doet wordt nergens naartoe gestuurd; het blijft in deze browser.",
+ bar_student:"Demo. Je bent Sanne de Vries, student in Maastricht. Wissel naar de werkgeversweergave om te antwoorden als Fietshuis Sint Pieter.",
+ bar_employer:"Demo. Je bent Fietshuis Sint Pieter, een fietsenwinkel in Maastricht. Wissel naar de studentweergave om te antwoorden als Sanne de Vries.",
+ view_student:"Student", view_employer:"Werkgever", reset:"Demo resetten", reset_done:"Demo gereset",
+ t_jobs:"Banen voor jou", t_likes:"Likes", t_matches:"Matches", t_profile:"Profiel",
+ t_cands:"Kandidaten", t_listings:"Vacatures", t_plans:"Pakket",
+ view_stack:"Eén voor één", view_list:"Lijst",
+ skip:"Overslaan", like:"Like", like_back:"Like terug", liked:"Geliket",
+ hours:"Uren", pay:"Loon", place:"Plaats", start:"Start", per_h:"per uur", per_m:"per maand", h_week:"uur per week",
+ available:"Beschikbaar", looking_for:"Zoekt", languages:"Talen", up_to:"tot",
+ fit:"match", r_field:"Past bij de studierichting", r_field_s:"Past bij je studie", r_skills:"{n} van {m} vaardigheden", r_city:"In {c}", r_region:"In Zuid-Limburg", r_hours:"Past bij {h} uur per week", r_type:"Juiste soort werk",
+ co_liked_you:"Dit bedrijf heeft je profiel geliket", stu_liked_job:"Heeft deze vacature geliket",
+ aside_h:"Zo werkt het", aside_s1:"Like de banen die je wilt. Sla de rest over.", aside_s2:"Het bedrijf ziet je like bij de vacature.", aside_s3:"Liket het bedrijf terug, dan heb je een match en kies je een tijd voor het gesprek.",
+ aside_e1:"Kies een vacature en like de studenten die je wilt spreken.", aside_e2:"De student ziet dat je het profiel hebt geliket.", aside_e3:"Liket de student de baan ook, dan heb je een match en kiest de student een tijd.",
+ up_next:"Hierna",
+ empty_jobs_h:"Je hebt alle banen gezien", empty_jobs_p:"Nieuwe banen verschijnen hier zodra bedrijven ze plaatsen. Bekijk intussen je likes.", see_likes:"Bekijk je likes", show_skipped:"Toon overgeslagen opnieuw",
+ empty_cands_h:"Je hebt alle studenten voor deze vacature gezien", empty_cands_p:"Nieuwe profielen verschijnen hier zodra studenten zich aanmelden.",
+ liked_you_h:"Bedrijven die je profiel hebben geliket", liked_you_p:"Like de baan terug voor een match en een gesprek.",
+ you_liked_h:"Banen die je hebt geliket", you_liked_p:"Wachten op antwoord van het bedrijf.",
+ liked_job_h:"Studenten die je vacatures hebben geliket", liked_job_p:"Like terug voor een match en nodig uit voor een gesprek.",
+ you_liked_stu_h:"Studenten die je hebt geliket", you_liked_stu_p:"Wachten op antwoord van de student.",
+ none_yet:"Hier staat nog niets.",
+ demo_co:"Demo: speel het antwoord van het bedrijf", demo_stu:"Demo: speel het antwoord van de student", demo_step:"Demo: speel de stap van {n}",
+ for_job:"voor",
+ match_h:"Het is een match.", match_p_s:"Jij en {co} zeiden allebei ja tegen {job}. Je staat op de shortlist. Kies nu een tijd voor het gesprek.", match_p_e:"Jij en {st} zeiden allebei ja tegen {job}. {st} staat op je shortlist en kan nu een tijd kiezen voor het gesprek.",
+ go_match:"Naar de match", keep_browsing:"Verder kijken",
+ st0:"Match", st1:"Gesprek gepland", st2:"Gesprek gehad", st3:"Aanbod", st4:"Aangenomen",
+ a0_s:"Kies een tijd voor je gesprek.", a0_e:"{n} kiest een van de 3 tijden die je hebt voorgesteld.",
+ a1_s:"Je gesprek is op {d}.", a1_e:"Gesprek met {n} op {d}.", mark_done:"Markeer gesprek als gehad",
+ a2_s:"Gesprek gehad. Nu beslist het bedrijf.", a2_e:"Hoe ging het? Stuur een aanbod om de match af te ronden.", send_offer:"Stuur aanbod", offer_sent:"Aanbod verstuurd",
+ a3_s:"{co} heeft je een aanbod gestuurd: {pay}, {hrs}.", a3_e:"Aanbod verstuurd. Wachten tot {n} accepteert.", accept:"Accepteer aanbod",
+ a4_s:"Je begint bij {co}. Start: {start}.", a4_e:"{n} begint bij jullie. Start: {start}.",
+ no_matches_h:"Nog geen matches", no_matches_s:"Een match verschijnt hier als jij en een bedrijf dezelfde baan liken.", no_matches_e:"Een match verschijnt hier als jij en een student allebei ja zeggen tegen een vacature.",
+ profile_h:"Je profiel", profile_p:"Dit zien bedrijven. Je suggesties veranderen zodra je opslaat.",
+ study_fields:"Richtingen waarin je wilt werken", city:"Stad", max_hours:"Uren per week die je kunt werken", job_types:"Soort werk", skills:"Vaardigheden", save_profile:"Profiel opslaan", profile_saved:"Profiel opgeslagen. Je suggesties zijn bijgewerkt.",
+ parttime:"Bijbaan", internship:"Stage", traineeship:"Traineeship",
+ listings_h:"Je vacatures", listing_meta:"Likes: {l}, matches: {m}", see_cands:"Bekijk kandidaten",
+ post_h:"Plaats een vacature", post_p:"Studenten zien hem direct in hun suggesties.",
+ j_title:"Functietitel", j_type:"Soort werk", j_field:"Richting", j_city:"Plaats", j_hmin:"Uren per week, vanaf", j_hmax:"Uren per week, tot", j_pay:"Loon in euro's", j_per:"Betaald", j_start:"Start", j_skills:"Vaardigheden die je zoekt", post_btn:"Plaats vacature", posted:"Geplaatst. Studenten kunnen hem nu zien.",
+ limit_msg:"Je pakket {p} dekt {n} actieve vacatures. Wissel van pakket om meer te plaatsen.", see_plans:"Bekijk pakketten",
+ plan_changed:"Pakket gewijzigd naar {p}", plan_h:"Je pakket", plan_p:"Je hebt {a} actieve vacatures.", unlimited_word:"onbeperkt",
+ signup_h:"Maak een bedrijfsaccount", signup_p:"Dit vult een nieuwe werkgever in. In deze demo ben je al ingelogd.", co_name:"Bedrijfsnaam", work_email:"Zakelijk e-mailadres", your_name:"Je naam", create_acc:"Account aanmaken", acc_created:"Account aangemaakt voor {c}",
+ like_sent:"Geliket. {n} kan het nu zien.", skipped:"Overgeslagen"
+}};
+const NL_WORDS = {"Customer service":"Klantenservice","Research":"Onderzoek","Presenting":"Presenteren","Data analysis":"Data-analyse","Dutch":"Nederlands","English":"Engels","Video editing":"Videobewerking","Healthcare":"Zorg"};
+
+/* ---------- State ---------- */
+const KEY = "nxttalent-demo-v1";
+function fresh(){ return {lang:"en", ls:{...SEED.ls}, lc:{...SEED.lc}, skS:{}, skC:{}, pipe:{}, jobs:[], profile:null, plan:"growth", mode:"stack", job:"j1"}; }
+let S = fresh();
+try{ const raw = localStorage.getItem(KEY); if(raw) S = Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* ---------- Helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const t = (key, vars) => { let s = (I18N[S.lang][key] ?? I18N.en[key] ?? key); if(vars) for(const v in vars) s = s.split("{"+v+"}").join(vars[v]); return s; };
+const L = o => (o && typeof o === "object") ? (o[S.lang] ?? o.en) : o;
+const W = w => S.lang === "nl" && NL_WORDS[w] ? NL_WORDS[w] : w;
+const key = (s, j) => s + "|" + j;
+const jobs = () => BASE_JOBS.concat(S.jobs);
+const job = id => jobs().find(j => j.id === id);
+const student = id => id === ME && S.profile ? Object.assign({}, STUDENTS[ME], S.profile) : STUDENTS[id];
+const myJobs = () => jobs().filter(j => j.co === MYCO);
+const money = (n) => new Intl.NumberFormat(S.lang === "nl" ? "nl-NL" : "en-IE", {style:"currency", currency:"EUR", minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits:2}).format(n);
+const payText = j => money(j.pay) + " " + t(j.per === "h" ? "per_h" : "per_m");
+const hoursText = j => (j.hmin === j.hmax ? j.hmin : j.hmin + "–" + j.hmax) + " " + t("h_week");
+const first = n => n.split(" ")[0];
+const LOGO = `<svg viewBox="0 0 46 50" aria-hidden="true"><path class="arch" d="M0 50V23a23 23 0 0 1 46 0v27H33.500V23a10.500 10.500 0 0 0-21 0v27z"/><circle class="dot" cx="23" cy="43.500" r="6.500"/></svg><span aria-hidden="true">xttalent</span><span class="sr">nxttalent</span>`;
+
+function fit(st, j){
+  let score = 0; const why = [];
+  if(st.fields.includes(j.field)){ score += 30; why.push("field"); }
+  const hit = j.skills.filter(s => st.skills.includes(s));
+  score += Math.round(30 * hit.length / Math.max(1, j.skills.length));
+  if(hit.length) why.push("skills");
+  if(st.city === j.city){ score += 15; why.push("city"); } else { score += 8; why.push("region"); }
+  if(j.hmin <= st.hours){ score += 15; why.push("hours"); } else if(j.hmin - st.hours <= 8) score += 5;
+  if(st.types.includes(j.type)){ score += 10; why.push("type"); }
+  return {score: Math.min(98, score), why, hit};
+}
+function reasons(st, j, f, asStudent){
+  return f.why.map(w => ({
+    field: t(asStudent ? "r_field_s" : "r_field"),
+    skills: t("r_skills", {n:f.hit.length, m:j.skills.length}),
+    city: t("r_city", {c:j.city}), region: t("r_region"),
+    hours: t("r_hours", {h: asStudent ? hoursText(j).replace(" " + t("h_week"), "") : st.hours}),
+    type: t("r_type")
+  }[w]));
+}
+function slots(){
+  // three weekday interview times, starting two days from now
+  const out = [], d = new Date(); let add = 1;
+  for(const [h, m] of [[10,0],[14,30],[9,0]]){
+    let x;
+    do { add++; x = new Date(d); x.setDate(d.getDate() + add); } while(x.getDay() === 0 || x.getDay() === 6);
+    x.setHours(h, m, 0, 0); out.push(x.toISOString());
+  }
+  return out;
+}
+const when = iso => new Intl.DateTimeFormat(S.lang === "nl" ? "nl-NL" : "en-GB", {weekday:"long", day:"numeric", month:"long", hour:"2-digit", minute:"2-digit"}).format(new Date(iso));
+const whenShort = iso => new Intl.DateTimeFormat(S.lang === "nl" ? "nl-NL" : "en-GB", {weekday:"short", day:"numeric", month:"short", hour:"2-digit", minute:"2-digit"}).format(new Date(iso));
+
+let toastTimer;
+function toast(msg){ const el = $("#toast"); el.textContent = msg; el.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => el.hidden = true, 3200); }
+
+/* ---------- Routing ---------- */
+function route(){ const p = location.hash.replace(/^#\/?/, "").split("/"); return {side: p[0] || "home", tab: p[1] || ""}; }
+function go(path){ if(location.hash === "#/" + path) render(); else location.hash = "#/" + path; }
+window.addEventListener("hashchange", () => { render(); window.scrollTo(0, 0); });
+
+/* ---------- Likes, matches, pipeline ---------- */
+function checkMatch(s, j, viewer){
+  const k = key(s, j);
+  if(S.ls[k] && S.lc[k] && !S.pipe[k]){ S.pipe[k] = {stage:0, slots:slots(), slot:null}; save(); showMatch(s, j, viewer); return true; }
+  return false;
+}
+function likeAsStudent(j){ S.ls[key(ME, j)] = 1; delete S.skS[j]; save(); if(!checkMatch(ME, j, "s")) toast(t("like_sent", {n: COMPANIES[job(j).co].name})); }
+function likeAsCompany(s, j){ S.lc[key(s, j)] = 1; delete S.skC[key(s, j)]; save(); if(!checkMatch(s, j, "e")) toast(t("like_sent", {n: first(student(s).name)})); }
+function advance(k, slot){
+  const p = S.pipe[k]; if(!p || p.stage >= 4) return;
+  if(p.stage === 0) p.slot = slot || p.slots[0];
+  p.stage++; save();
+}
+const matchesFor = side => Object.keys(S.pipe).map(k => { const [s, j] = k.split("|"); return {k, s, j, p:S.pipe[k], job:job(j)}; })
+  .filter(m => m.job && (side === "s" ? m.s === ME : m.job.co === MYCO)).sort((a, b) => a.p.stage - b.p.stage);
+
+function showMatch(s, j, viewer){
+  const st = student(s), jb = job(j), co = COMPANIES[jb.co], o = $("#overlay");
+  o.innerHTML = `<div>
+    <div class="pair"><div class="avatar">${st.ini}</div><span class="cdot"></span><div class="bigmark">${co.ini}</div></div>
+    <h2 id="mTitle">${t("match_h")}</h2>
+    <p>${viewer === "s" ? t("match_p_s", {co:esc(co.name), job:esc(L(jb.title))}) : t("match_p_e", {st:esc(first(st.name)), job:esc(L(jb.title))})}</p>
+    <div class="cta"><button class="btn btn-coral" data-act="closeMatch" data-to="${viewer === "s" ? "student" : "employer"}/matches">${t("go_match")}</button>
+    <button class="btn btn-line" data-act="closeMatch">${t("keep_browsing")}</button></div></div>`;
+  o.hidden = false; o.querySelector("button").focus();
+}
+
+/* ---------- Views ---------- */
+function renderTop(r){
+  const inApp = r.side !== "home";
+  $("#top").innerHTML = `<a class="logo" href="#/" aria-label="nxttalent, ${t("home")}">${LOGO}</a>
+   <nav aria-label="Main">
+    <button class="navlink ${inApp && r.side === "employer" ? "hide-s" : ""}" data-go="student/jobs">${t("nav_students")}</button>
+    <button class="navlink ${!inApp || r.side === "student" ? "hide-s" : ""}" data-go="employer/candidates">${t("nav_employers")}</button>
+    ${inApp ? "" : `<button class="btn btn-plum btn-sm" data-go="employer/listings">${t("nav_post")}</button>`}
+    <div class="lang" role="group" aria-label="Language"><button aria-pressed="${S.lang === "en"}" data-act="lang" data-v="en">EN</button><button aria-pressed="${S.lang === "nl"}" data-act="lang" data-v="nl">NL</button></div>
+   </nav>`;
+  $("#bar").innerHTML = inApp ? `<div class="demo-bar"><div class="wrap">
+     <p>${t(r.side === "student" ? "bar_student" : "bar_employer")}</p>
+     <div class="seg" role="group" aria-label="View"><button aria-pressed="${r.side === "student"}" data-go="student/jobs">${t("view_student")}</button><button aria-pressed="${r.side === "employer"}" data-go="employer/candidates">${t("view_employer")}</button></div>
+     <button class="demo-btn" data-act="reset">${t("reset")}</button></div></div>` : "";
+  $("#foot").innerHTML = `<div class="wrap"><div><span class="logo">${LOGO}</span><p>${t("foot_note")}</p></div>
+     <button class="demo-btn" style="color:#cfc3db" data-act="reset">${t("reset")}</button></div>`;
+  document.documentElement.lang = S.lang;
+}
+
+function planCards(inApp){
+  const feats = {starter:["f_1","f_match","f_pipe"], growth:["f_3","f_match","f_pipe","f_prio"], unlimited:["f_u","f_match","f_pipe","f_prio","f_support"]};
+  return `<div class="plans">${Object.keys(PLANS).map(p => {
+    const on = inApp ? S.plan === p : p === "growth";
+    return `<article class="plan ${on ? "on" : ""}">
+      ${on ? `<span class="tag"><span class="cdot"></span>${t(inApp ? "current_plan" : "most_chosen")}</span>` : ""}
+      <h3 class="h2">${t("p_" + p)}</h3><p class="muted">${t("p_" + p + "_d")}</p>
+      <div class="price">${money(PLANS[p].price)} <small>${t("per_month")}</small></div>
+      <ul>${feats[p].map(f => `<li>${t(f)}</li>`).join("")}</ul>
+      ${inApp && on ? "" : `<button class="btn ${on ? "btn-plum" : "btn-sand"}" data-act="plan" data-v="${p}">${t("choose")} ${t("p_" + p)}</button>`}
+    </article>`; }).join("")}</div><p class="fine">${t("price_fine")}</p>`;
+}
+
+function viewHome(){
+  return `<section class="hero"><div class="wrap">
+    <div><h1 class="display">${t("hero_h")}</h1><p>${t("hero_p")}</p>
+      <div class="cta"><button class="btn btn-coral" data-go="student/jobs">${t("im_student")}</button><button class="btn btn-sand" data-go="employer/candidates">${t("im_hiring")}</button></div>
+      <small>${t("hero_small")}</small></div>
+    <div class="door" aria-hidden="true">
+      <div class="mini"><b>${t("mini_job")}</b><span>${t("mini_job_s")}</span></div>
+      <div class="mini"><b>${t("mini_stu")}</b><span>${t("mini_stu_s")}</span></div>
+      <div class="status">${t("matched_word")} <span class="cdot"></span></div>
+    </div></div></section>
+  <section class="band"><div class="wrap"><h2 class="h1">${t("how_h")}</h2>
+    <ol class="steps">${[1,2,3,4].map(i => `<li><h3 class="h2">${t("s" + i + "_h")}</h3><p>${t("s" + i + "_p")}</p></li>`).join("")}</ol></div></section>
+  <section class="doors"><div class="wrap">
+    <div class="side s"><h2 class="h1">${t("stu_h")}</h2><ul><li>${t("stu_l1")}</li><li>${t("stu_l2")}</li><li>${t("stu_l3")}</li></ul><button class="btn btn-plum" data-go="student/jobs">${t("stu_btn")}</button></div>
+    <div class="side e"><h2 class="h1">${t("emp_h")}</h2><ul><li>${t("emp_l1")}</li><li>${t("emp_l2")}</li><li>${t("emp_l3")}</li></ul><button class="btn btn-sand" data-go="employer/candidates">${t("emp_btn")}</button></div>
+  </div></section>
+  <section class="pricing"><div class="wrap"><h2 class="h1">${t("price_h")}</h2><p class="muted" style="margin-top:10px">${t("price_p")}</p>${planCards(false)}</div></section>`;
+}
+
+function tabs(side, tab, items){
+  return `<div class="tabs" role="tablist">${items.map(([id, label, n]) => `<button role="tab" aria-selected="${tab === id}" data-go="${side}/${id}">${label}${n ? `<span class="count">${n}</span>` : ""}</button>`).join("")}</div>`;
+}
+function modeToggle(){ return `<div class="seg" role="group"><button aria-pressed="${S.mode === "stack"}" data-act="mode" data-v="stack">${t("view_stack")}</button><button aria-pressed="${S.mode === "list"}" data-act="mode" data-v="list">${t("view_list")}</button></div>`; }
+function fitBox(f, rs){ return `<div class="fit"><strong>${f.score}% ${t("fit")}</strong><ul>${rs.map(r => `<li>${esc(r)}</li>`).join("")}</ul></div>`; }
+
+/* student */
+function studentDeck(){
+  const me = student(ME);
+  return jobs().filter(j => !S.ls[key(ME, j.id)] && !S.skS[j.id]).map(j => ({j, f:fit(me, j), likedMe: !!S.lc[key(ME, j.id)]}))
+    .sort((a, b) => (b.likedMe - a.likedMe) * 100 + b.f.score - a.f.score);
+}
+function jobCard(x){
+  const j = x.j, co = COMPANIES[j.co], me = student(ME);
+  return `<article class="card" id="card">
+    ${x.likedMe ? `<div class="note"><span class="cdot"></span>${t("co_liked_you")}</div>` : ""}
+    <div class="card-top"><div class="mark lg">${co.ini}</div><div><b>${esc(co.name)}</b><div class="muted">${esc(L(co.about))}</div></div></div>
+    <h2>${esc(L(j.title))}</h2>
+    <dl class="facts"><div><dt>${t("hours")}</dt><dd>${hoursText(j)}</dd></div><div><dt>${t("pay")}</dt><dd>${payText(j)}</dd></div><div><dt>${t("place")}</dt><dd>${esc(j.city)}</dd></div><div><dt>${t("start")}</dt><dd>${esc(L(j.start))}</dd></div></dl>
+    <div class="chips"><span class="chip">${t(j.type)}</span>${j.skills.map(s => `<span class="chip ${me.skills.includes(s) ? "hit" : ""}">${esc(W(s))}</span>`).join("")}</div>
+    ${fitBox(x.f, reasons(me, j, x.f, true))}
+    <div class="acts"><button class="btn btn-sand" data-act="sSkip" data-j="${j.id}">${t("skip")}</button><button class="btn btn-coral" data-act="sLike" data-j="${j.id}">${t(x.likedMe ? "like_back" : "like")}</button></div>
+  </article>`;
+}
+function viewStudent(tab){
+  const me = student(ME), deck = studentDeck();
+  const likedMe = Object.keys(S.lc).filter(k => k.startsWith(ME + "|") && !S.ls[k] && job(k.split("|")[1]));
+  const waiting = Object.keys(S.ls).filter(k => k.startsWith(ME + "|") && !S.lc[k] && job(k.split("|")[1]));
+  const ms = matchesFor("s"), open = ms.filter(m => m.p.stage < 4).length;
+  let body = "";
+  if(tab === "jobs"){
+    if(!deck.length) body = `<div class="empty"><h2 class="h2">${t("empty_jobs_h")}</h2><p>${t("empty_jobs_p")}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-plum" data-go="student/likes">${t("see_likes")}</button>${Object.keys(S.skS).length ? `<button class="btn btn-sand" data-act="unskipS">${t("show_skipped")}</button>` : ""}</div></div>`;
+    else if(S.mode === "stack") body = `<div class="deck">${jobCard(deck[0])}<aside class="aside"><h3>${t("aside_h")}</h3><ol><li>${t("aside_s1")}</li><li>${t("aside_s2")}</li><li>${t("aside_s3")}</li></ol>
+        ${deck.length > 1 ? `<div class="next"><h3>${t("up_next")}</h3><ol>${deck.slice(1, 5).map(x => `<li>${esc(L(x.j.title))} <span class="muted">${esc(COMPANIES[x.j.co].name)}, ${x.f.score}%</span></li>`).join("")}</ol></div>` : ""}</aside></div>`;
+    else body = `<div class="rows">${deck.map(x => `<div class="row"><div class="mark">${COMPANIES[x.j.co].ini}</div><div class="main"><b>${esc(L(x.j.title))}</b><span>${esc(COMPANIES[x.j.co].name)}, ${esc(x.j.city)}. ${hoursText(x.j)}, ${payText(x.j)}</span></div>
+        <div class="end">${x.likedMe ? `<span class="tag"><span class="cdot"></span>${t("co_liked_you")}</span>` : ""}<span class="score">${x.f.score}% ${t("fit")}</span><button class="btn btn-sand btn-sm" data-act="sSkip" data-j="${x.j.id}">${t("skip")}</button><button class="btn btn-coral btn-sm" data-act="sLike" data-j="${x.j.id}">${t(x.likedMe ? "like_back" : "like")}</button></div></div>`).join("")}</div>`;
+    body = `<div class="deck-head"><span class="muted">${deck.length ? deck.length + " " + t("t_jobs").toLowerCase() : ""}</span>${modeToggle()}</div>` + body;
+  }
+  if(tab === "likes"){
+    const row = (k, btn) => { const j = job(k.split("|")[1]), co = COMPANIES[j.co], f = fit(me, j);
+      return `<div class="row"><div class="mark">${co.ini}</div><div class="main"><b>${esc(co.name)}</b><span>${t("for_job")} ${esc(L(j.title))}. ${hoursText(j)}, ${payText(j)}</span></div><div class="end"><span class="score">${f.score}% ${t("fit")}</span>${btn(j)}</div></div>`; };
+    body = `<h2 class="sec-title">${t("liked_you_h")}</h2><p class="sec-sub">${t("liked_you_p")}</p><div class="rows">${likedMe.length ? likedMe.map(k => row(k, j => `<button class="btn btn-coral btn-sm" data-act="sLike" data-j="${j.id}">${t("like_back")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>
+      <h2 class="sec-title">${t("you_liked_h")}</h2><p class="sec-sub">${t("you_liked_p")}</p><div class="rows">${waiting.length ? waiting.map(k => row(k, j => `<button class="demo-btn" data-act="demoCo" data-j="${j.id}">${t("demo_co")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>`;
+  }
+  if(tab === "matches") body = ms.length ? ms.map(m => pipeCard(m, "s")).join("") : `<div class="empty"><h2 class="h2">${t("no_matches_h")}</h2><p>${t("no_matches_s")}</p><button class="btn btn-plum" data-go="student/jobs">${t("t_jobs")}</button></div>`;
+  if(tab === "profile"){
+    const chk = (name, v, label, on) => `<label class="check"><input type="checkbox" name="${name}" value="${esc(v)}" ${on ? "checked" : ""}><span>${esc(label)}</span></label>`;
+    body = `<div class="two"><form class="panel" data-form="profile"><h2 class="sec-title">${t("profile_h")}</h2><p class="sec-sub">${t("profile_p")}</p>
+      <div class="grid2">
+       <div class="full"><label>${t("study_fields")}</label><div class="checks">${FIELDS.map(f => chk("fields", f, W(f), me.fields.includes(f))).join("")}</div></div>
+       <div><label for="pc">${t("city")}</label><select id="pc" class="in" name="city">${CITIES.map(c => `<option ${me.city === c ? "selected" : ""}>${c}</option>`).join("")}</select></div>
+       <div><label for="ph">${t("max_hours")}</label><input id="ph" class="in" type="number" name="hours" min="4" max="40" value="${me.hours}" required></div>
+       <div class="full"><label>${t("job_types")}</label><div class="checks">${TYPES.map(x => chk("types", x, t(x), me.types.includes(x))).join("")}</div></div>
+       <div class="full"><label>${t("skills")}</label><div class="checks">${ALL_SKILLS.map(s => chk("skills", s, W(s), me.skills.includes(s))).join("")}</div></div>
+      </div><button class="btn btn-plum" style="margin-top:22px">${t("save_profile")}</button></form>
+      <div class="panel"><div class="card-top"><div class="avatar lg">${me.ini}</div><div><b style="font-size:22px">${esc(me.name)}</b><div class="muted">${esc(L(me.study))}<br>${esc(me.school)}</div></div></div>
+       <p style="margin:18px 0">${esc(L(me.bio))}</p><div class="chips">${me.skills.map(s => `<span class="chip">${esc(W(s))}</span>`).join("")}</div></div></div>`;
+  }
+  return `<div class="wrap app"><div class="who"><div class="avatar">${me.ini}</div><div><h1>${esc(me.name)}</h1><span class="muted">${esc(L(me.study))}, ${esc(me.school)}</span></div></div>
+    ${tabs("student", tab, [["jobs", t("t_jobs")], ["likes", t("t_likes"), likedMe.length], ["matches", t("t_matches"), open], ["profile", t("t_profile")]])}${body}</div>`;
+}
+
+/* employer */
+function candDeck(jid){
+  const j = job(jid);
+  return Object.keys(STUDENTS).filter(s => !S.lc[key(s, jid)] && !S.skC[key(s, jid)]).map(s => ({s, st:student(s), f:fit(student(s), j), likedJob: !!S.ls[key(s, jid)]}))
+    .sort((a, b) => (b.likedJob - a.likedJob) * 100 + b.f.score - a.f.score);
+}
+function candCard(x, j){
+  const st = x.st;
+  return `<article class="card" id="card">
+    ${x.likedJob ? `<div class="note"><span class="cdot"></span>${t("stu_liked_job")}</div>` : ""}
+    <div class="card-top"><div class="avatar lg">${st.ini}</div><div><h2 style="margin:0">${esc(st.name)}</h2><div class="muted">${esc(L(st.study))}<br>${esc(st.school)}</div></div></div>
+    <p style="margin-top:18px">${esc(L(st.bio))}</p>
+    <dl class="facts"><div><dt>${t("available")}</dt><dd>${t("up_to")} ${st.hours} ${t("h_week")}</dd></div><div><dt>${t("place")}</dt><dd>${esc(st.city)}</dd></div><div><dt>${t("looking_for")}</dt><dd>${st.types.map(x => t(x)).join(", ")}</dd></div><div><dt>${t("languages")}</dt><dd>${esc(L(st.langs))}</dd></div></dl>
+    <div class="chips">${st.skills.map(s => `<span class="chip ${j.skills.includes(s) ? "hit" : ""}">${esc(W(s))}</span>`).join("")}</div>
+    ${fitBox(x.f, reasons(st, j, x.f, false))}
+    <div class="acts"><button class="btn btn-sand" data-act="eSkip" data-s="${x.s}" data-j="${j.id}">${t("skip")}</button><button class="btn btn-coral" data-act="eLike" data-s="${x.s}" data-j="${j.id}">${t(x.likedJob ? "like_back" : "like")}</button></div>
+  </article>`;
+}
+function viewEmployer(tab){
+  const co = COMPANIES[MYCO], mine = myJobs();
+  if(!mine.find(j => j.id === S.job)) S.job = mine[0].id;
+  const cur = job(S.job), mineIds = mine.map(j => j.id);
+  const pairs = o => Object.keys(o).map(k => k.split("|")).filter(([s, j]) => mineIds.includes(j));
+  const likedJob = pairs(S.ls).filter(([s, j]) => !S.lc[key(s, j)]);
+  const waiting = pairs(S.lc).filter(([s, j]) => !S.ls[key(s, j)]);
+  const ms = matchesFor("e"), open = ms.filter(m => m.p.stage < 4).length;
+  let body = "";
+  if(tab === "candidates"){
+    const deck = candDeck(cur.id);
+    const head = `<div class="deck-head"><div class="pills" role="group" aria-label="${t("t_listings")}">${mine.map(j => `<button class="pill" aria-pressed="${j.id === cur.id}" data-act="pick" data-j="${j.id}">${esc(L(j.title))}</button>`).join("")}</div>${modeToggle()}</div>`;
+    if(!deck.length) body = `<div class="empty"><h2 class="h2">${t("empty_cands_h")}</h2><p>${t("empty_cands_p")}</p>${Object.keys(S.skC).some(k => k.endsWith("|" + cur.id)) ? `<button class="btn btn-sand" data-act="unskipC" data-j="${cur.id}">${t("show_skipped")}</button>` : ""}</div>`;
+    else if(S.mode === "stack") body = `<div class="deck">${candCard(deck[0], cur)}<aside class="aside"><h3>${t("aside_h")}</h3><ol><li>${t("aside_e1")}</li><li>${t("aside_e2")}</li><li>${t("aside_e3")}</li></ol>
+        ${deck.length > 1 ? `<div class="next"><h3>${t("up_next")}</h3><ol>${deck.slice(1, 5).map(x => `<li>${esc(x.st.name)} <span class="muted">${x.f.score}%${x.likedJob ? ", " + t("stu_liked_job").toLowerCase() : ""}</span></li>`).join("")}</ol></div>` : ""}</aside></div>`;
+    else body = `<div class="rows">${deck.map(x => `<div class="row"><div class="avatar">${x.st.ini}</div><div class="main"><b>${esc(x.st.name)}</b><span>${esc(L(x.st.study))}, ${esc(x.st.school)}, ${t("up_to")} ${x.st.hours} ${t("h_week")}</span></div>
+        <div class="end">${x.likedJob ? `<span class="tag"><span class="cdot"></span>${t("stu_liked_job")}</span>` : ""}<span class="score">${x.f.score}% ${t("fit")}</span><button class="btn btn-sand btn-sm" data-act="eSkip" data-s="${x.s}" data-j="${cur.id}">${t("skip")}</button><button class="btn btn-coral btn-sm" data-act="eLike" data-s="${x.s}" data-j="${cur.id}">${t(x.likedJob ? "like_back" : "like")}</button></div></div>`).join("")}</div>`;
+    body = head + body;
+  }
+  if(tab === "likes"){
+    const row = ([s, j], btn) => { const st = student(s), jb = job(j), f = fit(st, jb);
+      return `<div class="row"><div class="avatar">${st.ini}</div><div class="main"><b>${esc(st.name)}</b><span>${t("for_job")} ${esc(L(jb.title))}. ${esc(L(st.study))}</span></div><div class="end"><span class="score">${f.score}% ${t("fit")}</span>${btn}</div></div>`; };
+    body = `<h2 class="sec-title">${t("liked_job_h")}</h2><p class="sec-sub">${t("liked_job_p")}</p><div class="rows">${likedJob.length ? likedJob.map(p => row(p, `<button class="btn btn-coral btn-sm" data-act="eLike" data-s="${p[0]}" data-j="${p[1]}">${t("like_back")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>
+      <h2 class="sec-title">${t("you_liked_stu_h")}</h2><p class="sec-sub">${t("you_liked_stu_p")}</p><div class="rows">${waiting.length ? waiting.map(p => row(p, `<button class="demo-btn" data-act="demoStu" data-s="${p[0]}" data-j="${p[1]}">${t("demo_stu")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>`;
+  }
+  if(tab === "matches") body = ms.length ? ms.map(m => pipeCard(m, "e")).join("") : `<div class="empty"><h2 class="h2">${t("no_matches_h")}</h2><p>${t("no_matches_e")}</p><button class="btn btn-plum" data-go="employer/candidates">${t("t_cands")}</button></div>`;
+  if(tab === "listings"){
+    const lim = PLANS[S.plan].limit, full = mine.length >= lim;
+    const opt = (arr, f) => arr.map(v => `<option value="${esc(v)}">${esc(f(v))}</option>`).join("");
+    body = `<div class="two"><div><h2 class="sec-title">${t("listings_h")}</h2><p class="sec-sub">${t("p_" + S.plan)}: ${mine.length} / ${lim === Infinity ? t("unlimited_word") : lim}</p>
+      <div class="rows">${mine.map(j => { const l = Object.keys(S.ls).filter(k => k.endsWith("|" + j.id)).length, m = Object.keys(S.pipe).filter(k => k.endsWith("|" + j.id)).length;
+        return `<div class="row"><div class="main"><b>${esc(L(j.title))}</b><span>${t(j.type)}, ${esc(j.city)}. ${hoursText(j)}, ${payText(j)}<br>${t("listing_meta", {l, m})}</span></div><div class="end"><button class="btn btn-sand btn-sm" data-act="pick" data-j="${j.id}" data-to="employer/candidates">${t("see_cands")}</button></div></div>`; }).join("")}</div></div>
+      <form class="panel" data-form="post"><h2 class="sec-title">${t("post_h")}</h2><p class="sec-sub">${t("post_p")}</p>
+      ${full ? `<p class="note" style="background:var(--sand);color:var(--plum)"><span class="cdot"></span><span>${t("limit_msg", {p:t("p_" + S.plan), n:lim})}</span></p><button type="button" class="btn btn-plum" data-go="employer/plans">${t("see_plans")}</button>` : `
+      <div class="grid2">
+       <div class="full"><label for="jt">${t("j_title")}</label><input id="jt" class="in" name="title" required maxlength="60"></div>
+       <div><label for="jy">${t("j_type")}</label><select id="jy" class="in" name="type">${opt(TYPES, v => t(v))}</select></div>
+       <div><label for="jf">${t("j_field")}</label><select id="jf" class="in" name="field">${opt(FIELDS, W)}</select></div>
+       <div><label for="jc">${t("j_city")}</label><select id="jc" class="in" name="city">${opt(CITIES, v => v)}</select></div>
+       <div><label for="js">${t("j_start")}</label><input id="js" class="in" name="start" required maxlength="30" value="${S.lang === "nl" ? "Per direct" : "Right away"}"></div>
+       <div><label for="j1">${t("j_hmin")}</label><input id="j1" class="in" type="number" name="hmin" min="2" max="40" value="8" required></div>
+       <div><label for="j2">${t("j_hmax")}</label><input id="j2" class="in" type="number" name="hmax" min="2" max="40" value="16" required></div>
+       <div><label for="jp">${t("j_pay")}</label><input id="jp" class="in" type="number" name="pay" min="1" step="0.01" value="15" required></div>
+       <div><label for="jr">${t("j_per")}</label><select id="jr" class="in" name="per"><option value="h">${t("per_h")}</option><option value="m">${t("per_m")}</option></select></div>
+       <div class="full"><label>${t("j_skills")}</label><div class="checks">${ALL_SKILLS.map(s => `<label class="check"><input type="checkbox" name="skills" value="${esc(s)}"><span>${esc(W(s))}</span></label>`).join("")}</div></div>
+      </div><button class="btn btn-coral" style="margin-top:22px">${t("post_btn")}</button>`}</form></div>`;
+  }
+  if(tab === "plans"){
+    body = `<h2 class="sec-title">${t("plan_h")}: ${t("p_" + S.plan)}</h2><p class="sec-sub">${t("plan_p", {a:mine.length})}</p>${planCards(true)}
+      <form class="panel" data-form="signup" style="margin-top:40px;max-width:720px"><h2 class="sec-title">${t("signup_h")}</h2><p class="sec-sub">${t("signup_p")}</p>
+       <div class="grid2"><div><label for="sc">${t("co_name")}</label><input id="sc" class="in" name="co" required></div><div><label for="se">${t("work_email")}</label><input id="se" class="in" type="email" name="email" required></div>
+       <div><label for="sn">${t("your_name")}</label><input id="sn" class="in" name="name" required></div><div><label for="sp">${t("t_plans")}</label><select id="sp" class="in" name="plan">${Object.keys(PLANS).map(p => `<option value="${p}" ${p === S.plan ? "selected" : ""}>${t("p_" + p)}, ${money(PLANS[p].price)} ${t("per_month")}</option>`).join("")}</select></div></div>
+       <button class="btn btn-plum" style="margin-top:20px">${t("create_acc")}</button></form>`;
+  }
+  return `<div class="wrap app"><div class="who"><div class="mark lg">${co.ini}</div><div><h1>${esc(co.name)}</h1><span class="muted">${esc(L(co.about))} ${esc(co.city)}</span></div></div>
+    ${tabs("employer", tab, [["candidates", t("t_cands")], ["likes", t("t_likes"), likedJob.length], ["matches", t("t_matches"), open], ["listings", t("t_listings")], ["plans", t("t_plans")]])}${body}</div>`;
+}
+
+/* shared pipeline card */
+function pipeCard(m, side){
+  const st = student(m.s), j = m.job, co = COMPANIES[j.co], p = m.p, other = side === "s" ? co.name : first(st.name);
+  const demo = `<button class="demo-btn" data-act="adv" data-k="${m.k}">${t("demo_step", {n:esc(other)})}</button>`;
+  const v = {n:esc(first(st.name)), co:esc(co.name), d:p.slot ? when(p.slot) : "", pay:payText(j), hrs:hoursText(j), start:esc(L(j.start))};
+  let step = "";
+  if(p.stage === 0) step = side === "s" ? `<p><b>${t("a0_s")}</b></p><div class="slots">${p.slots.map(x => `<button class="btn btn-sand btn-sm" data-act="adv" data-k="${m.k}" data-slot="${x}">${whenShort(x)}</button>`).join("")}</div>` : `<p>${t("a0_e", v)}</p>${demo}`;
+  if(p.stage === 1) step = side === "s" ? `<p><b>${t("a1_s", v)}</b></p>${demo}` : `<p><b>${t("a1_e", v)}</b></p><button class="btn btn-plum btn-sm" data-act="adv" data-k="${m.k}">${t("mark_done")}</button>`;
+  if(p.stage === 2) step = side === "s" ? `<p>${t("a2_s")}</p>${demo}` : `<p><b>${t("a2_e")}</b></p><button class="btn btn-coral btn-sm" data-act="adv" data-k="${m.k}">${t("send_offer")}</button>`;
+  if(p.stage === 3) step = side === "s" ? `<p><b>${t("a3_s", v)}</b></p><button class="btn btn-coral btn-sm" data-act="adv" data-k="${m.k}">${t("accept")}</button>` : `<p>${t("a3_e", v)}</p>${demo}`;
+  if(p.stage === 4) step = `<div class="hired">${t("hired_word")} <span class="cdot"></span></div><p>${t(side === "s" ? "a4_s" : "a4_e", v)}</p>`;
+  return `<article class="pipe ${p.stage === 4 ? "done" : ""}">
+    <div class="pipe-top">${side === "s" ? `<div class="mark" ${p.stage === 4 ? 'style="background:var(--cream);color:var(--plum)"' : ""}>${co.ini}</div>` : `<div class="avatar">${st.ini}</div>`}
+      <div class="main"><b>${side === "s" ? esc(L(j.title)) : esc(st.name)}</b><span>${side === "s" ? esc(co.name) + ", " + esc(j.city) : esc(L(j.title))}</span></div></div>
+    <ol class="track">${[0,1,2,3,4].map(i => `<li class="${i < p.stage ? "past" : i === p.stage ? "now" : ""}" ${i === p.stage ? 'aria-current="step"' : ""}>${t("st" + i)}</li>`).join("")}</ol>
+    <div class="step">${step}</div></article>`;
+}
+
+/* ---------- Render + events ---------- */
+function render(){
+  const r = route();
+  if(r.side === "student" && !["jobs","likes","matches","profile"].includes(r.tab)) r.tab = "jobs";
+  if(r.side === "employer" && !["candidates","likes","matches","listings","plans"].includes(r.tab)) r.tab = "candidates";
+  if(!["home","student","employer"].includes(r.side)) r.side = "home";
+  renderTop(r);
+  $("#app").innerHTML = r.side === "student" ? viewStudent(r.tab) : r.side === "employer" ? viewEmployer(r.tab) : viewHome();
+}
+function swipe(cls, fn){
+  const c = $("#card"), still = matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(!c || still || S.mode !== "stack"){ fn(); render(); return; }
+  c.classList.add(cls); setTimeout(() => { fn(); render(); }, 220);
+}
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]");
+  const b = e.target.closest("[data-act]");
+  if(b){
+    const a = b.dataset.act, d = b.dataset;
+    if(a === "lang"){ S.lang = d.v; save(); render(); }
+    else if(a === "mode"){ S.mode = d.v; save(); render(); }
+    else if(a === "reset"){ const lang = S.lang; S = fresh(); S.lang = lang; save(); render(); toast(t("reset_done")); }
+    else if(a === "sLike") swipe("out-like", () => likeAsStudent(d.j));
+    else if(a === "sSkip") swipe("out-skip", () => { S.skS[d.j] = 1; save(); });
+    else if(a === "eLike") swipe("out-like", () => likeAsCompany(d.s, d.j));
+    else if(a === "eSkip") swipe("out-skip", () => { S.skC[key(d.s, d.j)] = 1; save(); });
+    else if(a === "unskipS"){ S.skS = {}; save(); render(); }
+    else if(a === "unskipC"){ for(const k in S.skC) if(k.endsWith("|" + d.j)) delete S.skC[k]; save(); render(); }
+    else if(a === "demoCo"){ S.lc[key(ME, d.j)] = 1; save(); checkMatch(ME, d.j, "s"); render(); }
+    else if(a === "demoStu"){ S.ls[key(d.s, d.j)] = 1; save(); checkMatch(d.s, d.j, "e"); render(); }
+    else if(a === "adv"){ const before = S.pipe[d.k].stage; advance(d.k, d.slot); if(before === 2 && route().side === "employer") toast(t("offer_sent")); render(); }
+    else if(a === "pick"){ S.job = d.j; save(); if(d.to) go(d.to); else render(); }
+    else if(a === "plan"){ S.plan = d.v; save(); toast(t("plan_changed", {p:t("p_" + d.v)})); if(route().side === "employer") render(); else go("employer/plans"); }
+    else if(a === "closeMatch"){ $("#overlay").hidden = true; if(d.to) go(d.to); }
+    return;
+  }
+  if(g){ e.preventDefault(); go(g.dataset.go); }
+});
+document.addEventListener("submit", e => {
+  const f = e.target.closest("[data-form]"); if(!f) return; e.preventDefault();
+  const fd = new FormData(f), kind = f.dataset.form;
+  if(kind === "profile"){
+    S.profile = {fields:fd.getAll("fields"), types:fd.getAll("types"), skills:fd.getAll("skills"), city:fd.get("city"), hours:Math.max(4, Math.min(40, +fd.get("hours") || 16))};
+    save(); render(); toast(t("profile_saved"));
+  }
+  if(kind === "post"){
+    if(myJobs().length >= PLANS[S.plan].limit) return;
+    const hmin = +fd.get("hmin"), hmax = Math.max(hmin, +fd.get("hmax")), title = String(fd.get("title")).trim(), start = String(fd.get("start")).trim();
+    if(!title) return;
+    const id = "x" + Date.now();
+    S.jobs.push({id, co:MYCO, title:{en:title, nl:title}, type:fd.get("type"), field:fd.get("field"), city:fd.get("city"), hmin, hmax, pay:+fd.get("pay"), per:fd.get("per"), start:{en:start, nl:start}, skills:fd.getAll("skills")});
+    S.job = id; save(); render(); toast(t("posted"));
+  }
+  if(kind === "signup"){ S.plan = fd.get("plan"); save(); render(); toast(t("acc_created", {c:String(fd.get("co"))})); }
+});
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape" && !$("#overlay").hidden) $("#overlay").hidden = true;
+});
+render();
+</script>
+</body>
+</html>
