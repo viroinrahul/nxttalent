@@ -224,6 +224,29 @@ label{display:block;font-size:14px;font-weight:600;margin-bottom:5px}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--plum);color:var(--cream);padding:13px 20px;border-radius:999px;font-weight:600;font-size:15px;z-index:90;max-width:calc(100% - 32px);box-shadow:0 10px 30px rgba(42,22,64,.3)}
 .toast[hidden]{display:none}
 
+/* usability test mode */
+body.testing{padding-bottom:190px}
+body.testing .toast{bottom:200px}
+.testbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--plum);color:var(--cream);padding:16px 0;box-shadow:0 -10px 30px rgba(42,22,64,.28)}
+.testbar .wrap{display:flex;gap:12px 22px;align-items:center;flex-wrap:wrap}
+.testbar .txt{flex:1;min-width:240px}
+.testbar .n{font-size:13px;font-weight:600;color:var(--coral-light)}
+.testbar b{display:block;font-size:18px;line-height:1.3}
+.testbar textarea{width:100%;margin-top:10px;border:0;border-radius:12px;padding:10px 12px;background:var(--cream);color:var(--plum);font-size:15px;min-height:54px;resize:vertical}
+.ease{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px;margin-top:8px}
+.ease button{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--cream);background:none;color:var(--cream);font-weight:700}
+.ease button[aria-pressed=true]{background:var(--cream);color:var(--plum)}
+.scrim{position:fixed;inset:0;background:rgba(42,22,64,.5);z-index:55}
+.narrow{max-width:720px}
+.narrow p + p{margin-top:14px}
+.res{width:100%;border-collapse:collapse;font-size:15px;margin:14px 0 26px;background:var(--paper)}
+.res th,.res td{border:1px solid var(--sand-line);padding:9px 12px;text-align:left;vertical-align:top}
+.res th{background:var(--sand);font-weight:600}
+.scroll{overflow-x:auto}
+.radios{display:flex;gap:8px;flex-wrap:wrap}
+.linkrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.linkrow code{background:var(--paper);border:1px solid var(--sand-line);border-radius:8px;padding:6px 10px;font-size:13px;word-break:break-all;flex:1;min-width:220px}
+
 @media (max-width:900px){
   .hero .wrap,.doors .wrap,.deck,.two{grid-template-columns:1fr}
   .door{margin:0 auto;max-width:380px}
@@ -258,6 +281,7 @@ label{display:block;font-size:14px;font-weight:600;margin-bottom:5px}
 <main id="app"></main>
 <footer id="foot"></footer>
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="mTitle" hidden></div>
+<div id="testbar"></div>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
@@ -375,7 +399,22 @@ en:{
  limit_msg:"Your {p} plan covers {n} active listings. Switch plans to post more.", see_plans:"See plans",
  plan_changed:"Plan changed to {p}", plan_h:"Your plan", plan_p:"You have {a} active listings.", unlimited_word:"unlimited",
  signup_h:"Create a company account", signup_p:"What a new employer fills in. In this demo you're already signed in.", co_name:"Company name", work_email:"Work email", your_name:"Your name", create_acc:"Create account", acc_created:"Account created for {c}",
- like_sent:"Liked. {n} can see it now.", skipped:"Skipped"
+ like_sent:"Liked. {n} can see it now.", skipped:"Skipped",
+ no_jobs_h:"Post your first job", no_jobs_p:"Once a job is online you can see the students that fit it.",
+ foot_test:"Prototype for a usability test. All students, companies and jobs shown are fictional.",
+ w_h:"Help us test nxttalent",
+ w_p1:"nxttalent is a new way for students and local companies to find each other. This is an early prototype. We are testing the website, not you: if something is unclear, that is our mistake and exactly what we want to learn.",
+ w_p2:"You get {n} short tasks, shown at the bottom of the screen. It takes about 10 minutes. Try each one on your own. If you can't work it out, press “I can't do this” and move on.",
+ w_p3:"The companies, students and jobs you'll see are made up. We record which buttons you press and how long each task takes. Your name is not saved in the results, and nothing is sent anywhere: at the end you download a results file and send it to us yourself.",
+ w_btn:"Start the test",
+ tb_task:"Task {i} of {n}", tb_give:"I can't do this", tb_done:"Task done.", tb_gave:"No problem, that tells us something.", tb_ease:"How easy was that?", tb_hard:"Very hard", tb_easy:"Very easy",
+ tb_ph_done:"Anything unclear? (optional)", tb_ph_gave:"What were you looking for, or what stopped you?", tb_next:"Next task", tb_last:"Finish",
+ ob_s_h:"Create your profile", ob_s_p:"Companies see this when they look for students.", ob_name:"First name or nickname", ob_study:"What do you study?", ob_school:"Where?", ob_other:"Somewhere else", ob_bio:"One line about you (optional)", ob_save:"Create profile",
+ ob_e_h:"Create your company account", ob_e_p:"Students see this next to your jobs.", ob_about:"What does your company do? One line", ob_esave:"Create account",
+ pq_h:"Three last questions", pq_use_s:"Would you use nxttalent to look for a job?", pq_use_e:"Would you use nxttalent to find students?", yes:"Yes", maybe:"Maybe", no:"No",
+ pq_conf:"What was the most confusing part?", pq_miss:"What did you miss, or expect to see?", pq_btn:"Finish",
+ end_h:"Thank you.", end_p:"One last step: download your results and send the file to the person who invited you.", end_dl:"Download results", end_copy:"Copy results", copied:"Copied", end_new:"Start with a new participant",
+ o_done:"Done", o_gave:"Gave up", o_early:"Done earlier"
 },
 nl:{
  nav_students:"Studenten", nav_employers:"Werkgevers", nav_post:"Plaats een vacature", home:"Home",
@@ -443,13 +482,35 @@ nl:{
  limit_msg:"Je pakket {p} dekt {n} actieve vacatures. Wissel van pakket om meer te plaatsen.", see_plans:"Bekijk pakketten",
  plan_changed:"Pakket gewijzigd naar {p}", plan_h:"Je pakket", plan_p:"Je hebt {a} actieve vacatures.", unlimited_word:"onbeperkt",
  signup_h:"Maak een bedrijfsaccount", signup_p:"Dit vult een nieuwe werkgever in. In deze demo ben je al ingelogd.", co_name:"Bedrijfsnaam", work_email:"Zakelijk e-mailadres", your_name:"Je naam", create_acc:"Account aanmaken", acc_created:"Account aangemaakt voor {c}",
- like_sent:"Geliket. {n} kan het nu zien.", skipped:"Overgeslagen"
+ like_sent:"Geliket. {n} kan het nu zien.", skipped:"Overgeslagen",
+ no_jobs_h:"Plaats je eerste vacature", no_jobs_p:"Zodra een vacature online staat, zie je de studenten die erbij passen.",
+ foot_test:"Prototype voor een gebruikstest. Alle studenten, bedrijven en vacatures zijn fictief.",
+ w_h:"Help ons nxttalent testen",
+ w_p1:"nxttalent is een nieuwe manier voor studenten en lokale bedrijven om elkaar te vinden. Dit is een vroeg prototype. We testen de website, niet jou: als iets onduidelijk is, is dat onze fout en precies wat we willen leren.",
+ w_p2:"Je krijgt {n} korte opdrachten, onderaan het scherm. Het duurt ongeveer 10 minuten. Probeer elke opdracht zelf. Kom je er niet uit, klik dan op “Dit lukt me niet” en ga verder.",
+ w_p3:"De bedrijven, studenten en banen die je ziet zijn verzonnen. We leggen vast op welke knoppen je klikt en hoe lang een opdracht duurt. Je naam wordt niet opgeslagen in de resultaten en er wordt niets verstuurd: aan het einde download je een resultatenbestand en stuur je het zelf naar ons.",
+ w_btn:"Start de test",
+ tb_task:"Opdracht {i} van {n}", tb_give:"Dit lukt me niet", tb_done:"Opdracht gelukt.", tb_gave:"Geen probleem, daar leren we van.", tb_ease:"Hoe makkelijk was dat?", tb_hard:"Heel moeilijk", tb_easy:"Heel makkelijk",
+ tb_ph_done:"Was er iets onduidelijk? (optioneel)", tb_ph_gave:"Wat zocht je, of wat hield je tegen?", tb_next:"Volgende opdracht", tb_last:"Afronden",
+ ob_s_h:"Maak je profiel", ob_s_p:"Dit zien bedrijven als ze studenten zoeken.", ob_name:"Voornaam of bijnaam", ob_study:"Wat studeer je?", ob_school:"Waar?", ob_other:"Ergens anders", ob_bio:"Eén zin over jezelf (optioneel)", ob_save:"Profiel aanmaken",
+ ob_e_h:"Maak je bedrijfsaccount", ob_e_p:"Dit zien studenten naast je vacatures.", ob_about:"Wat doet je bedrijf? Eén zin", ob_esave:"Account aanmaken",
+ pq_h:"Nog drie vragen", pq_use_s:"Zou je nxttalent gebruiken om een baan te zoeken?", pq_use_e:"Zou je nxttalent gebruiken om studenten te vinden?", yes:"Ja", maybe:"Misschien", no:"Nee",
+ pq_conf:"Wat was het meest verwarrend?", pq_miss:"Wat miste je, of wat had je verwacht te zien?", pq_btn:"Afronden",
+ end_h:"Bedankt.", end_p:"Nog één stap: download je resultaten en stuur het bestand naar degene die je heeft uitgenodigd.", end_dl:"Download resultaten", end_copy:"Kopieer resultaten", copied:"Gekopieerd", end_new:"Start met een nieuwe deelnemer",
+ o_done:"Gelukt", o_gave:"Opgegeven", o_early:"Eerder gelukt"
 }};
 const NL_WORDS = {"Customer service":"Klantenservice","Research":"Onderzoek","Presenting":"Presenteren","Data analysis":"Data-analyse","Dutch":"Nederlands","English":"Engels","Video editing":"Videobewerking","Healthcare":"Zorg"};
 
 /* ---------- State ---------- */
-const KEY = "nxttalent-demo-v1";
-function fresh(){ return {lang:"en", ls:{...SEED.ls}, lc:{...SEED.lc}, skS:{}, skC:{}, pipe:{}, jobs:[], profile:null, plan:"growth", mode:"stack", job:"j1"}; }
+const Q = new URLSearchParams(location.search);
+const TEST = ["student","employer"].includes(Q.get("test")) ? Q.get("test") : null;   // ?test=student or ?test=employer starts a usability test
+const KEY = TEST ? "nxttalent-test-" + TEST + "-v1" : "nxttalent-demo-v1";
+function fresh(){
+  const st = {lang: Q.get("lang") === "nl" ? "nl" : "en", ls:{...SEED.ls}, lc:{...SEED.lc}, skS:{}, skC:{}, pipe:{}, jobs:[], profile:null, company:null, plan:"growth", mode:"stack", job:"j1"};
+  if(TEST){ st.lc = {}; if(TEST === "employer") st.ls = {};
+    st.T = {pid: Q.get("p") || "P" + Math.floor(1000 + Math.random() * 9000), phase:"welcome", i:0, onboarded:false, started:null, finished:null, cur:null, tasks:[], events:[], post:null}; }
+  return st;
+}
 let S = fresh();
 try{ const raw = localStorage.getItem(KEY); if(raw) S = Object.assign(fresh(), JSON.parse(raw)); }catch(e){}
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
@@ -461,7 +522,8 @@ const t = (key, vars) => { let s = (I18N[S.lang][key] ?? I18N.en[key] ?? key); i
 const L = o => (o && typeof o === "object") ? (o[S.lang] ?? o.en) : o;
 const W = w => S.lang === "nl" && NL_WORDS[w] ? NL_WORDS[w] : w;
 const key = (s, j) => s + "|" + j;
-const jobs = () => BASE_JOBS.concat(S.jobs);
+const comp = id => id === MYCO && S.company ? S.company : COMPANIES[id];
+const jobs = () => (TEST === "employer" ? BASE_JOBS.filter(j => j.co !== MYCO) : BASE_JOBS).concat(S.jobs);
 const job = id => jobs().find(j => j.id === id);
 const student = id => id === ME && S.profile ? Object.assign({}, STUDENTS[ME], S.profile) : STUDENTS[id];
 const myJobs = () => jobs().filter(j => j.co === MYCO);
@@ -518,7 +580,7 @@ function checkMatch(s, j, viewer){
   if(S.ls[k] && S.lc[k] && !S.pipe[k]){ S.pipe[k] = {stage:0, slots:slots(), slot:null}; save(); showMatch(s, j, viewer); return true; }
   return false;
 }
-function likeAsStudent(j){ S.ls[key(ME, j)] = 1; delete S.skS[j]; save(); if(!checkMatch(ME, j, "s")) toast(t("like_sent", {n: COMPANIES[job(j).co].name})); }
+function likeAsStudent(j){ S.ls[key(ME, j)] = 1; delete S.skS[j]; save(); if(!checkMatch(ME, j, "s")) toast(t("like_sent", {n: comp(job(j).co).name})); }
 function likeAsCompany(s, j){ S.lc[key(s, j)] = 1; delete S.skC[key(s, j)]; save(); if(!checkMatch(s, j, "e")) toast(t("like_sent", {n: first(student(s).name)})); }
 function advance(k, slot){
   const p = S.pipe[k]; if(!p || p.stage >= 4) return;
@@ -529,7 +591,7 @@ const matchesFor = side => Object.keys(S.pipe).map(k => { const [s, j] = k.split
   .filter(m => m.job && (side === "s" ? m.s === ME : m.job.co === MYCO)).sort((a, b) => a.p.stage - b.p.stage);
 
 function showMatch(s, j, viewer){
-  const st = student(s), jb = job(j), co = COMPANIES[jb.co], o = $("#overlay");
+  const st = student(s), jb = job(j), co = comp(jb.co), o = $("#overlay");
   o.innerHTML = `<div>
     <div class="pair"><div class="avatar">${st.ini}</div><span class="cdot"></span><div class="bigmark">${co.ini}</div></div>
     <h2 id="mTitle">${t("match_h")}</h2>
@@ -541,21 +603,29 @@ function showMatch(s, j, viewer){
 
 /* ---------- Views ---------- */
 function renderTop(r){
-  const inApp = r.side !== "home";
+  const inApp = r.side === "student" || r.side === "employer";
+  const lang = `<div class="lang" role="group" aria-label="Language"><button aria-pressed="${S.lang === "en"}" data-act="lang" data-v="en">EN</button><button aria-pressed="${S.lang === "nl"}" data-act="lang" data-v="nl">NL</button></div>`;
+  document.documentElement.lang = S.lang;
+  document.body.classList.toggle("testing", !!TEST);
+  if(TEST){   // test mode: no demo bar, no role switch, no reset
+    $("#top").innerHTML = `<span class="logo">${LOGO}</span><nav aria-label="Main">${lang}</nav>`;
+    $("#bar").innerHTML = "";
+    $("#foot").innerHTML = `<div class="wrap"><div><span class="logo">${LOGO}</span><p>${t("foot_test")}</p></div></div>`;
+    return;
+  }
   $("#top").innerHTML = `<a class="logo" href="#/" aria-label="nxttalent, ${t("home")}">${LOGO}</a>
    <nav aria-label="Main">
     <button class="navlink ${inApp && r.side === "employer" ? "hide-s" : ""}" data-go="student/jobs">${t("nav_students")}</button>
     <button class="navlink ${!inApp || r.side === "student" ? "hide-s" : ""}" data-go="employer/candidates">${t("nav_employers")}</button>
     ${inApp ? "" : `<button class="btn btn-plum btn-sm" data-go="employer/listings">${t("nav_post")}</button>`}
-    <div class="lang" role="group" aria-label="Language"><button aria-pressed="${S.lang === "en"}" data-act="lang" data-v="en">EN</button><button aria-pressed="${S.lang === "nl"}" data-act="lang" data-v="nl">NL</button></div>
+    ${lang}
    </nav>`;
   $("#bar").innerHTML = inApp ? `<div class="demo-bar"><div class="wrap">
      <p>${t(r.side === "student" ? "bar_student" : "bar_employer")}</p>
      <div class="seg" role="group" aria-label="View"><button aria-pressed="${r.side === "student"}" data-go="student/jobs">${t("view_student")}</button><button aria-pressed="${r.side === "employer"}" data-go="employer/candidates">${t("view_employer")}</button></div>
      <button class="demo-btn" data-act="reset">${t("reset")}</button></div></div>` : "";
   $("#foot").innerHTML = `<div class="wrap"><div><span class="logo">${LOGO}</span><p>${t("foot_note")}</p></div>
-     <button class="demo-btn" style="color:#cfc3db" data-act="reset">${t("reset")}</button></div>`;
-  document.documentElement.lang = S.lang;
+     <div style="display:flex;gap:20px;flex-wrap:wrap"><button class="demo-btn" style="color:#cfc3db" data-go="testing">Usability testing</button><button class="demo-btn" style="color:#cfc3db" data-act="reset">${t("reset")}</button></div></div>`;
 }
 
 function planCards(inApp){
@@ -603,7 +673,7 @@ function studentDeck(){
     .sort((a, b) => (b.likedMe - a.likedMe) * 100 + b.f.score - a.f.score);
 }
 function jobCard(x){
-  const j = x.j, co = COMPANIES[j.co], me = student(ME);
+  const j = x.j, co = comp(j.co), me = student(ME);
   return `<article class="card" id="card">
     ${x.likedMe ? `<div class="note"><span class="cdot"></span>${t("co_liked_you")}</div>` : ""}
     <div class="card-top"><div class="mark lg">${co.ini}</div><div><b>${esc(co.name)}</b><div class="muted">${esc(L(co.about))}</div></div></div>
@@ -623,16 +693,16 @@ function viewStudent(tab){
   if(tab === "jobs"){
     if(!deck.length) body = `<div class="empty"><h2 class="h2">${t("empty_jobs_h")}</h2><p>${t("empty_jobs_p")}</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn btn-plum" data-go="student/likes">${t("see_likes")}</button>${Object.keys(S.skS).length ? `<button class="btn btn-sand" data-act="unskipS">${t("show_skipped")}</button>` : ""}</div></div>`;
     else if(S.mode === "stack") body = `<div class="deck">${jobCard(deck[0])}<aside class="aside"><h3>${t("aside_h")}</h3><ol><li>${t("aside_s1")}</li><li>${t("aside_s2")}</li><li>${t("aside_s3")}</li></ol>
-        ${deck.length > 1 ? `<div class="next"><h3>${t("up_next")}</h3><ol>${deck.slice(1, 5).map(x => `<li>${esc(L(x.j.title))} <span class="muted">${esc(COMPANIES[x.j.co].name)}, ${x.f.score}%</span></li>`).join("")}</ol></div>` : ""}</aside></div>`;
-    else body = `<div class="rows">${deck.map(x => `<div class="row"><div class="mark">${COMPANIES[x.j.co].ini}</div><div class="main"><b>${esc(L(x.j.title))}</b><span>${esc(COMPANIES[x.j.co].name)}, ${esc(x.j.city)}. ${hoursText(x.j)}, ${payText(x.j)}</span></div>
+        ${deck.length > 1 ? `<div class="next"><h3>${t("up_next")}</h3><ol>${deck.slice(1, 5).map(x => `<li>${esc(L(x.j.title))} <span class="muted">${esc(comp(x.j.co).name)}, ${x.f.score}%</span></li>`).join("")}</ol></div>` : ""}</aside></div>`;
+    else body = `<div class="rows">${deck.map(x => `<div class="row"><div class="mark">${comp(x.j.co).ini}</div><div class="main"><b>${esc(L(x.j.title))}</b><span>${esc(comp(x.j.co).name)}, ${esc(x.j.city)}. ${hoursText(x.j)}, ${payText(x.j)}</span></div>
         <div class="end">${x.likedMe ? `<span class="tag"><span class="cdot"></span>${t("co_liked_you")}</span>` : ""}<span class="score">${x.f.score}% ${t("fit")}</span><button class="btn btn-sand btn-sm" data-act="sSkip" data-j="${x.j.id}">${t("skip")}</button><button class="btn btn-coral btn-sm" data-act="sLike" data-j="${x.j.id}">${t(x.likedMe ? "like_back" : "like")}</button></div></div>`).join("")}</div>`;
     body = `<div class="deck-head"><span class="muted">${deck.length ? deck.length + " " + t("t_jobs").toLowerCase() : ""}</span>${modeToggle()}</div>` + body;
   }
   if(tab === "likes"){
-    const row = (k, btn) => { const j = job(k.split("|")[1]), co = COMPANIES[j.co], f = fit(me, j);
+    const row = (k, btn) => { const j = job(k.split("|")[1]), co = comp(j.co), f = fit(me, j);
       return `<div class="row"><div class="mark">${co.ini}</div><div class="main"><b>${esc(co.name)}</b><span>${t("for_job")} ${esc(L(j.title))}. ${hoursText(j)}, ${payText(j)}</span></div><div class="end"><span class="score">${f.score}% ${t("fit")}</span>${btn(j)}</div></div>`; };
     body = `<h2 class="sec-title">${t("liked_you_h")}</h2><p class="sec-sub">${t("liked_you_p")}</p><div class="rows">${likedMe.length ? likedMe.map(k => row(k, j => `<button class="btn btn-coral btn-sm" data-act="sLike" data-j="${j.id}">${t("like_back")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>
-      <h2 class="sec-title">${t("you_liked_h")}</h2><p class="sec-sub">${t("you_liked_p")}</p><div class="rows">${waiting.length ? waiting.map(k => row(k, j => `<button class="demo-btn" data-act="demoCo" data-j="${j.id}">${t("demo_co")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>`;
+      <h2 class="sec-title">${t("you_liked_h")}</h2><p class="sec-sub">${t("you_liked_p")}</p><div class="rows">${waiting.length ? waiting.map(k => row(k, j => TEST ? "" : `<button class="demo-btn" data-act="demoCo" data-j="${j.id}">${t("demo_co")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>`;
   }
   if(tab === "matches") body = ms.length ? ms.map(m => pipeCard(m, "s")).join("") : `<div class="empty"><h2 class="h2">${t("no_matches_h")}</h2><p>${t("no_matches_s")}</p><button class="btn btn-plum" data-go="student/jobs">${t("t_jobs")}</button></div>`;
   if(tab === "profile"){
@@ -671,15 +741,16 @@ function candCard(x, j){
   </article>`;
 }
 function viewEmployer(tab){
-  const co = COMPANIES[MYCO], mine = myJobs();
-  if(!mine.find(j => j.id === S.job)) S.job = mine[0].id;
-  const cur = job(S.job), mineIds = mine.map(j => j.id);
+  const co = comp(MYCO), mine = myJobs();
+  if(mine.length && !mine.find(j => j.id === S.job)) S.job = mine[0].id;
+  const cur = mine.length ? job(S.job) : null, mineIds = mine.map(j => j.id);
   const pairs = o => Object.keys(o).map(k => k.split("|")).filter(([s, j]) => mineIds.includes(j));
   const likedJob = pairs(S.ls).filter(([s, j]) => !S.lc[key(s, j)]);
   const waiting = pairs(S.lc).filter(([s, j]) => !S.ls[key(s, j)]);
   const ms = matchesFor("e"), open = ms.filter(m => m.p.stage < 4).length;
   let body = "";
-  if(tab === "candidates"){
+  if(tab === "candidates" && !cur) body = `<div class="empty"><h2 class="h2">${t("no_jobs_h")}</h2><p>${t("no_jobs_p")}</p><button class="btn btn-plum" data-go="employer/listings">${t("nav_post")}</button></div>`;
+  if(tab === "candidates" && cur){
     const deck = candDeck(cur.id);
     const head = `<div class="deck-head"><div class="pills" role="group" aria-label="${t("t_listings")}">${mine.map(j => `<button class="pill" aria-pressed="${j.id === cur.id}" data-act="pick" data-j="${j.id}">${esc(L(j.title))}</button>`).join("")}</div>${modeToggle()}</div>`;
     if(!deck.length) body = `<div class="empty"><h2 class="h2">${t("empty_cands_h")}</h2><p>${t("empty_cands_p")}</p>${Object.keys(S.skC).some(k => k.endsWith("|" + cur.id)) ? `<button class="btn btn-sand" data-act="unskipC" data-j="${cur.id}">${t("show_skipped")}</button>` : ""}</div>`;
@@ -693,7 +764,7 @@ function viewEmployer(tab){
     const row = ([s, j], btn) => { const st = student(s), jb = job(j), f = fit(st, jb);
       return `<div class="row"><div class="avatar">${st.ini}</div><div class="main"><b>${esc(st.name)}</b><span>${t("for_job")} ${esc(L(jb.title))}. ${esc(L(st.study))}</span></div><div class="end"><span class="score">${f.score}% ${t("fit")}</span>${btn}</div></div>`; };
     body = `<h2 class="sec-title">${t("liked_job_h")}</h2><p class="sec-sub">${t("liked_job_p")}</p><div class="rows">${likedJob.length ? likedJob.map(p => row(p, `<button class="btn btn-coral btn-sm" data-act="eLike" data-s="${p[0]}" data-j="${p[1]}">${t("like_back")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>
-      <h2 class="sec-title">${t("you_liked_stu_h")}</h2><p class="sec-sub">${t("you_liked_stu_p")}</p><div class="rows">${waiting.length ? waiting.map(p => row(p, `<button class="demo-btn" data-act="demoStu" data-s="${p[0]}" data-j="${p[1]}">${t("demo_stu")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>`;
+      <h2 class="sec-title">${t("you_liked_stu_h")}</h2><p class="sec-sub">${t("you_liked_stu_p")}</p><div class="rows">${waiting.length ? waiting.map(p => row(p, TEST ? "" : `<button class="demo-btn" data-act="demoStu" data-s="${p[0]}" data-j="${p[1]}">${t("demo_stu")}</button>`)).join("") : `<p class="muted">${t("none_yet")}</p>`}</div>`;
   }
   if(tab === "matches") body = ms.length ? ms.map(m => pipeCard(m, "e")).join("") : `<div class="empty"><h2 class="h2">${t("no_matches_h")}</h2><p>${t("no_matches_e")}</p><button class="btn btn-plum" data-go="employer/candidates">${t("t_cands")}</button></div>`;
   if(tab === "listings"){
@@ -730,8 +801,8 @@ function viewEmployer(tab){
 
 /* shared pipeline card */
 function pipeCard(m, side){
-  const st = student(m.s), j = m.job, co = COMPANIES[j.co], p = m.p, other = side === "s" ? co.name : first(st.name);
-  const demo = `<button class="demo-btn" data-act="adv" data-k="${m.k}">${t("demo_step", {n:esc(other)})}</button>`;
+  const st = student(m.s), j = m.job, co = comp(j.co), p = m.p, other = side === "s" ? co.name : first(st.name);
+  const demo = TEST ? "" : `<button class="demo-btn" data-act="adv" data-k="${m.k}">${t("demo_step", {n:esc(other)})}</button>`;
   const v = {n:esc(first(st.name)), co:esc(co.name), d:p.slot ? when(p.slot) : "", pay:payText(j), hrs:hoursText(j), start:esc(L(j.start))};
   let step = "";
   if(p.stage === 0) step = side === "s" ? `<p><b>${t("a0_s")}</b></p><div class="slots">${p.slots.map(x => `<button class="btn btn-sand btn-sm" data-act="adv" data-k="${m.k}" data-slot="${x}">${whenShort(x)}</button>`).join("")}</div>` : `<p>${t("a0_e", v)}</p>${demo}`;
@@ -746,14 +817,250 @@ function pipeCard(m, side){
     <div class="step">${step}</div></article>`;
 }
 
+/* =====================================================================
+   Usability test mode  (open the site with ?test=student or ?test=employer)
+   - the tester is themselves: they create their own profile or company
+   - no demo helpers; the other side's answers are simulated at fixed points
+   - every task is timed, clicks and screens are logged, completion is
+     detected by the site (not self-reported), giving up is recorded
+   - results are exported as a JSON file; #/testing combines the files
+   ===================================================================== */
+function simCompanyLikes(){   // two best-fitting companies like the tester's profile
+  const me = student(ME);
+  jobs().filter(j => !S.ls[key(ME, j.id)] && !S.lc[key(ME, j.id)]).map(j => ({j, f:fit(me, j).score})).sort((a, b) => b.f - a.f).slice(0, 2).forEach(x => S.lc[key(ME, x.j.id)] = 1);
+}
+function ensureMatchS(){      // returns true when the site had to set the match up itself
+  if(matchesFor("s").length) return false;
+  const find = () => Object.keys(S.lc).find(k => k.startsWith(ME + "|") && job(k.split("|")[1]));
+  let k = find(); if(!k){ simCompanyLikes(); k = find(); }
+  if(!k){ k = key(ME, jobs()[0].id); S.lc[k] = 1; }
+  S.ls[k] = 1; S.pipe[k] = {stage:0, slots:slots(), slot:null}; return true;
+}
+function topMatch(side){ return matchesFor(side).sort((a, b) => b.p.stage - a.p.stage)[0]; }
+function ensureJobE(){
+  if(myJobs().length) return false;
+  S.jobs.push({id:"x" + Date.now(), co:MYCO, title:{en:"Shop assistant", nl:"Winkelmedewerker"}, type:"parttime", field:"Retail", city:comp(MYCO).city, hmin:8, hmax:12, pay:14, per:"h", start:{en:"Right away", nl:"Per direct"}, skills:["Customer service","Dutch"]});
+  return true;
+}
+function simStudentLikes(){   // two best-fitting students like the tester's first job
+  const j = myJobs()[0];
+  Object.keys(STUDENTS).filter(s => !S.ls[key(s, j.id)] && !S.lc[key(s, j.id)]).map(s => ({s, f:fit(student(s), j).score})).sort((a, b) => b.f - a.f).slice(0, 2).forEach(x => S.ls[key(x.s, j.id)] = 1);
+}
+function ensureMatchE(){
+  if(matchesFor("e").length) return false;
+  const ids = myJobs().map(j => j.id), find = () => Object.keys(S.ls).find(k => ids.includes(k.split("|")[1]));
+  let k = find(); if(!k){ simStudentLikes(); k = find(); }
+  S.lc[k] = 1; S.pipe[k] = {stage:0, slots:slots(), slot:null}; return true;
+}
+const TASKS = {
+ student:[
+  {id:"S1", text:{en:"Set up your profile so companies can see who you are.", nl:"Maak je profiel aan zodat bedrijven kunnen zien wie je bent."}, done:() => S.T.onboarded},
+  {id:"S2", text:{en:"Find a job you would really want and let the company know you're interested.", nl:"Zoek een baan die je echt zou willen en laat het bedrijf weten dat je interesse hebt."}, done:() => Object.keys(S.ls).some(k => k.startsWith(ME + "|"))},
+  {id:"S3", text:{en:"A company is interested in you. Find out which one, and show you're interested too.", nl:"Een bedrijf heeft interesse in jou. Zoek uit welk bedrijf en laat zien dat jij ook interesse hebt."}, setup:() => { simCompanyLikes(); return false; }, done:() => matchesFor("s").length > 0},
+  {id:"S4", text:{en:"You and a company both said yes. Arrange your interview.", nl:"Jij en een bedrijf zeiden allebei ja. Regel je gesprek."}, setup:ensureMatchS, done:() => matchesFor("s").some(m => m.p.stage >= 1)},
+  {id:"S5", text:{en:"Your interview went well. Check whether the company wants to hire you, and respond.", nl:"Je gesprek ging goed. Kijk of het bedrijf je wil aannemen en reageer."}, setup:() => { const a = ensureMatchS(), m = topMatch("s"), b = m.p.stage < 1; if(!m.p.slot) m.p.slot = m.p.slots[0]; m.p.stage = 3; return a || b; }, done:() => matchesFor("s").some(m => m.p.stage >= 4)}
+ ],
+ employer:[
+  {id:"E1", text:{en:"Set up your company account.", nl:"Maak je bedrijfsaccount aan."}, done:() => S.T.onboarded},
+  {id:"E2", text:{en:"You need a student for a job at your company. Put the job on the platform.", nl:"Je zoekt een student voor een baan bij je bedrijf. Zet de baan op het platform."}, done:() => myJobs().length > 0},
+  {id:"E3", text:{en:"Look for a student you would want to meet for this job, and let them know.", nl:"Zoek een student die je voor deze baan zou willen spreken en laat dat weten."}, setup:ensureJobE, done:() => { const ids = myJobs().map(j => j.id); return Object.keys(S.lc).some(k => ids.includes(k.split("|")[1])); }},
+  {id:"E4", text:{en:"A student is interested in your job. Find out who, and show you're interested too.", nl:"Een student heeft interesse in je baan. Zoek uit wie en laat zien dat jij ook interesse hebt."}, setup:() => { const a = ensureJobE(); simStudentLikes(); return a; }, done:() => matchesFor("e").length > 0},
+  {id:"E5", text:{en:"The student has chosen an interview time. Assume the interview goes well, and hire them.", nl:"De student heeft een tijd voor het gesprek gekozen. Ga ervan uit dat het gesprek goed gaat en neem de student aan."}, setup:() => { const a = ensureJobE(), b = ensureMatchE(), m = topMatch("e"); if(m.p.stage < 1){ m.p.slot = m.p.slots[0]; m.p.stage = 1; } return a || b; }, done:() => matchesFor("e").some(m => m.p.stage >= 3)}
+ ]};
+
+function startTask(){
+  const list = TASKS[TEST];
+  while(S.T.i < list.length){
+    const tk = list[S.T.i], assisted = tk.setup ? !!tk.setup() : false;
+    if(tk.done()){ S.T.tasks.push({id:tk.id, outcome:"done_earlier", secs:0, clicks:0, screens:[], stuckAt:null, assisted, ease:null, comment:""}); S.T.i++; continue; }
+    S.T.cur = {id:tk.id, start:Date.now(), clicks:0, screens:[screenName()], assisted}; S.T.phase = "doing"; save(); return;
+  }
+  S.T.cur = null; S.T.phase = "post"; save();
+}
+function screenName(){ return !S.T.onboarded ? "onboarding" : (location.hash.replace(/^#\/?/, "") || TEST); }
+function finishTask(outcome){
+  const c = S.T.cur; if(!c) return;
+  S.T.tasks.push({id:c.id, outcome, secs:Math.round((Date.now() - c.start) / 1000), clicks:c.clicks, screens:c.screens, stuckAt:outcome === "gaveup" ? c.screens[c.screens.length - 1] : null, assisted:c.assisted, ease:null, comment:""});
+  S.T.cur = null; S.T.phase = "rate"; save();
+}
+function testTick(){          // runs after every render
+  const T = S.T;
+  if(T.phase === "doing" && T.cur){
+    if(TASKS[TEST][T.i].done()) finishTask("done");
+    else { const sc = screenName(); if(T.cur.screens[T.cur.screens.length - 1] !== sc) T.cur.screens.push(sc); save(); }
+  }
+  renderBar();
+}
+function logClick(e, b, g){
+  const T = S.T; if(T.phase !== "doing" || !T.cur) return;
+  if(b && b.dataset.act[0] === "t" && /^t[A-Z]/.test(b.dataset.act)) return;
+  let a;
+  if(b) a = b.dataset.act + (b.dataset.s ? ":" + b.dataset.s : "") + (b.dataset.j ? ":" + b.dataset.j : "") + (b.dataset.v ? ":" + b.dataset.v : "");
+  else if(g) a = "go:" + g.dataset.go;
+  else { const ui = e.target.closest("button,a,input,select,textarea,label"); const box = e.target.closest("[class]");
+    a = ui ? "ui:" + ui.tagName.toLowerCase() + (ui.name ? ":" + ui.name : "") : "miss:" + (box ? "." + box.className.split(" ")[0] : e.target.tagName.toLowerCase()); }
+  T.cur.clicks++;
+  if(T.events.length < 800) T.events.push({t:Math.round((Date.now() - T.started) / 1000), task:T.cur.id, screen:screenName(), a});
+}
+function renderBar(){
+  const T = S.T, el = $("#testbar"), list = TASKS[TEST];
+  if(T.phase === "doing"){
+    el.innerHTML = `<div class="testbar" role="region" aria-label="Task"><div class="wrap"><div class="txt"><span class="n">${t("tb_task", {i:T.i + 1, n:list.length})}</span><b>${L(list[T.i].text)}</b></div>
+      <button class="btn btn-line btn-sm" data-act="tGive">${t("tb_give")}</button></div></div>`;
+  } else if(T.phase === "rate"){
+    $("#toast").hidden = true;
+    const last = T.tasks[T.tasks.length - 1], done = last.outcome === "done";
+    el.innerHTML = `<div class="scrim"></div><div class="testbar" role="region" aria-label="Task"><div class="wrap"><div class="txt"><span class="n">${t("tb_task", {i:T.i + 1, n:list.length})}</span><b>${t(done ? "tb_done" : "tb_gave")}</b>
+      ${done ? `<div class="ease"><span>${t("tb_ease")}</span><span>${t("tb_hard")}</span>${[1,2,3,4,5,6,7].map(n => `<button aria-pressed="${last.ease === n}" data-act="tEase" data-v="${n}">${n}</button>`).join("")}<span>${t("tb_easy")}</span></div>` : ""}
+      <textarea id="tComment" aria-label="${t(done ? "tb_ph_done" : "tb_ph_gave")}" placeholder="${t(done ? "tb_ph_done" : "tb_ph_gave")}">${esc(last.comment)}</textarea></div>
+      <button class="btn btn-coral" data-act="tNext">${t(T.i + 1 < list.length ? "tb_next" : "tb_last")}</button></div></div>`;
+  } else el.innerHTML = "";
+}
+function exportData(){
+  const T = S.T;
+  return {app:"nxttalent-usability-test", version:1, participant:T.pid, role:TEST, lang:S.lang,
+    started:new Date(T.started).toISOString(), finished:new Date(T.finished || Date.now()).toISOString(),
+    minutes:Math.round(((T.finished || Date.now()) - T.started) / 6000) / 10,
+    device:{width:innerWidth, height:innerHeight, touch:"ontouchstart" in window, userAgent:navigator.userAgent},
+    tasks:T.tasks, post:T.post, events:T.events};
+}
+function testAct(b){
+  const a = b.dataset.act, T = S.T;
+  if(!/^t[A-Z]/.test(a)) return false;
+  if(!TEST) return true;
+  const keep = () => { const c = $("#tComment"); if(c && T.tasks.length) T.tasks[T.tasks.length - 1].comment = c.value.trim(); };
+  if(a === "tStart"){ T.started = Date.now(); T.i = 0; startTask(); render(); window.scrollTo(0, 0); }
+  else if(a === "tGive"){ finishTask("gaveup"); $("#overlay").hidden = true; renderBar(); const c = $("#tComment"); if(c) c.focus(); }
+  else if(a === "tEase"){ keep(); T.tasks[T.tasks.length - 1].ease = +b.dataset.v; save(); renderBar(); }
+  else if(a === "tNext"){ keep(); T.i++; startTask(); render(); }
+  else if(a === "tDownload"){
+    const blob = new Blob([JSON.stringify(exportData(), null, 2)], {type:"application/json"}), u = URL.createObjectURL(blob), l = document.createElement("a");
+    l.href = u; l.download = "nxttalent-test-" + TEST + "-" + T.pid + ".json"; document.body.appendChild(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 2000);
+  }
+  else if(a === "tCopy"){ const txt = JSON.stringify(exportData()); const ok = () => toast(t("copied"));
+    try{ navigator.clipboard.writeText(txt).then(ok, () => { $("#tJson").select(); }); }catch(err){ $("#tJson").select(); } }
+  else if(a === "tNew"){ const lang = S.lang; S = fresh(); S.lang = lang; if(!Q.get("p")) S.T.pid = "P" + Math.floor(1000 + Math.random() * 9000); save(); location.hash = ""; render(); window.scrollTo(0, 0); }
+  return true;
+}
+function testForm(kind, fd){
+  if(!TEST || !["obS","obE","postq"].includes(kind)) return false;
+  const val = n => String(fd.get(n) || "").trim(), ini = n => n.split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase() || "?";
+  if(kind === "obS"){
+    S.profile = {name:val("name"), ini:ini(val("name")), study:val("study"), school:val("school"), city:val("city"), hours:Math.max(4, Math.min(40, +fd.get("hours") || 12)),
+      types:fd.getAll("types"), fields:fd.getAll("fields"), skills:fd.getAll("skills"), bio:val("bio"), langs:""};
+    S.T.onboarded = true; save(); go("student/jobs"); window.scrollTo(0, 0);
+  }
+  if(kind === "obE"){
+    S.company = {name:val("name"), ini:ini(val("name")), about:val("about"), city:val("city")};
+    S.T.onboarded = true; save(); go("employer/candidates"); window.scrollTo(0, 0);
+  }
+  if(kind === "postq"){ S.T.post = {wouldUse:val("use"), confusing:val("confusing"), missing:val("missing")}; S.T.finished = Date.now(); S.T.phase = "end"; save(); render(); window.scrollTo(0, 0); }
+  return true;
+}
+
+/* test-mode screens */
+function viewWelcome(){
+  return `<div class="wrap app narrow"><h1 class="h1">${t("w_h")}</h1><div style="margin:22px 0 30px;font-size:19px"><p>${t("w_p1")}</p><p>${t("w_p2", {n:TASKS[TEST].length})}</p><p class="muted">${t("w_p3")}</p></div>
+    <button class="btn btn-coral" style="padding:16px 30px;font-size:18px" data-act="tStart">${t("w_btn")}</button></div>`;
+}
+function viewOnboard(){
+  const chk = (name, v, label) => `<label class="check"><input type="checkbox" name="${name}" value="${esc(v)}"><span>${esc(label)}</span></label>`;
+  const cities = `<select id="oc" class="in" name="city">${CITIES.map(c => `<option>${c}</option>`).join("")}</select>`;
+  if(TEST === "student") return `<div class="wrap app narrow"><form class="panel" data-form="obS"><h1 class="sec-title" style="font-size:30px">${t("ob_s_h")}</h1><p class="sec-sub">${t("ob_s_p")}</p>
+    <div class="grid2">
+     <div><label for="on">${t("ob_name")}</label><input id="on" class="in" name="name" required maxlength="40"></div>
+     <div><label for="os">${t("ob_study")}</label><input id="os" class="in" name="study" required maxlength="60"></div>
+     <div><label for="oh">${t("ob_school")}</label><select id="oh" class="in" name="school"><option>Maastricht University</option><option>Zuyd Hogeschool</option><option value="${t("ob_other")}">${t("ob_other")}</option></select></div>
+     <div><label for="oc">${t("city")}</label>${cities}</div>
+     <div><label for="ou">${t("max_hours")}</label><input id="ou" class="in" type="number" name="hours" min="4" max="40" value="12" required></div>
+     <div class="full"><label>${t("job_types")}</label><div class="checks">${TYPES.map(x => chk("types", x, t(x))).join("")}</div></div>
+     <div class="full"><label>${t("study_fields")}</label><div class="checks">${FIELDS.map(f => chk("fields", f, W(f))).join("")}</div></div>
+     <div class="full"><label>${t("skills")}</label><div class="checks">${ALL_SKILLS.map(x => chk("skills", x, W(x))).join("")}</div></div>
+     <div class="full"><label for="ob">${t("ob_bio")}</label><input id="ob" class="in" name="bio" maxlength="140"></div>
+    </div><button class="btn btn-coral" style="margin-top:22px">${t("ob_save")}</button></form></div>`;
+  return `<div class="wrap app narrow"><form class="panel" data-form="obE"><h1 class="sec-title" style="font-size:30px">${t("ob_e_h")}</h1><p class="sec-sub">${t("ob_e_p")}</p>
+    <div class="grid2">
+     <div><label for="on">${t("co_name")}</label><input id="on" class="in" name="name" required maxlength="50"></div>
+     <div><label for="oc">${t("city")}</label>${cities}</div>
+     <div class="full"><label for="oa">${t("ob_about")}</label><input id="oa" class="in" name="about" required maxlength="100"></div>
+    </div><button class="btn btn-coral" style="margin-top:22px">${t("ob_esave")}</button></form></div>`;
+}
+function viewPost(){
+  const r = (v, l) => `<label class="check"><input type="radio" name="use" value="${v}" required><span>${l}</span></label>`;
+  return `<div class="wrap app narrow"><form class="panel" data-form="postq"><h1 class="sec-title" style="font-size:30px">${t("pq_h")}</h1>
+    <div style="display:grid;gap:20px;margin-top:18px">
+     <div><label>${t(TEST === "student" ? "pq_use_s" : "pq_use_e")}</label><div class="radios">${r("yes", t("yes"))}${r("maybe", t("maybe"))}${r("no", t("no"))}</div></div>
+     <div><label for="q2">${t("pq_conf")}</label><textarea id="q2" class="in" name="confusing" rows="3"></textarea></div>
+     <div><label for="q3">${t("pq_miss")}</label><textarea id="q3" class="in" name="missing" rows="3"></textarea></div>
+    </div><button class="btn btn-coral" style="margin-top:22px">${t("pq_btn")}</button></form></div>`;
+}
+function viewEnd(){
+  const names = {done:t("o_done"), gaveup:t("o_gave"), done_earlier:t("o_early")};
+  return `<div class="wrap app narrow"><h1 class="h1">${t("end_h")}</h1><p style="margin:18px 0 22px;font-size:19px">${t("end_p")}</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-coral" data-act="tDownload">${t("end_dl")}</button><button class="btn btn-sand" data-act="tCopy">${t("end_copy")}</button></div>
+    <div class="scroll"><table class="res"><tbody>${S.T.tasks.map(x => `<tr><td>${esc(L(TASKS[TEST].find(k => k.id === x.id).text))}</td><td>${names[x.outcome]}</td><td>${x.secs} s</td></tr>`).join("")}</tbody></table></div>
+    <textarea id="tJson" class="sr" readonly aria-hidden="true" tabindex="-1">${esc(JSON.stringify(exportData()))}</textarea>
+    <button class="demo-btn" data-act="tNew">${t("end_new")}</button></div>`;
+}
+
+/* ---------- Team page: test links + combining result files (#/testing) ---------- */
+let RESULTS = [];
+function loadResults(files){
+  let left = files.length; if(!left) return;
+  [...files].forEach(f => { const rd = new FileReader();
+    rd.onload = () => { try{ const d = JSON.parse(rd.result); if(d.app === "nxttalent-usability-test" && Array.isArray(d.tasks) && !RESULTS.some(x => x.participant === d.participant && x.started === d.started)) RESULTS.push(d); }catch(err){} if(--left === 0) render(); };
+    rd.onerror = () => { if(--left === 0) render(); };
+    rd.readAsText(f); });
+}
+const median = a => { if(!a.length) return null; const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+function resultsCsv(){
+  const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const rows = [["participant","role","language","device_width","task","outcome","completed","set_up_by_site","seconds","clicks","ease_1_to_7","gave_up_on_screen","screens_visited","comment","would_use","most_confusing","missing"]];
+  RESULTS.forEach(d => d.tasks.forEach(x => rows.push([d.participant, d.role, d.lang, d.device && d.device.width, x.id, x.outcome, x.outcome === "gaveup" ? 0 : 1, x.assisted ? 1 : 0, x.secs, x.clicks, x.ease, x.stuckAt, (x.screens || []).join(" > "), x.comment, d.post && d.post.wouldUse, d.post && d.post.confusing, d.post && d.post.missing])));
+  return rows.map(r => r.map(q).join(",")).join("\n");
+}
+function viewTesting(){
+  const base = location.origin + location.pathname;
+  const link = (label, qs) => `<div class="linkrow"><b style="min-width:150px">${label}</b><code>${esc(base + qs)}</code></div>`;
+  let out = "";
+  ["student","employer"].forEach(role => {
+    const ds = RESULTS.filter(d => d.role === role); if(!ds.length) return;
+    out += `<h2 class="sec-title" style="margin-top:34px">${role === "student" ? "Students" : "Employers"}: ${ds.length} participant${ds.length > 1 ? "s" : ""}</h2>
+     <div class="scroll"><table class="res"><thead><tr><th>Task</th><th>Completed</th><th>Gave up</th><th>Set up by site</th><th>Median time</th><th>Median clicks</th><th>Ease (1 to 7)</th><th>Where people gave up</th></tr></thead><tbody>${TASKS[role].map(tk => {
+       const xs = ds.map(d => d.tasks.find(x => x.id === tk.id)).filter(Boolean), ok = xs.filter(x => x.outcome !== "gaveup"), gave = xs.filter(x => x.outcome === "gaveup");
+       const own = xs.filter(x => x.outcome === "done"), ease = own.map(x => x.ease).filter(Boolean), where = {};
+       gave.forEach(x => where[x.stuckAt || "?"] = (where[x.stuckAt || "?"] || 0) + 1);
+       return `<tr><td><b>${tk.id}</b> ${esc(tk.text.en)}</td><td>${ok.length} of ${xs.length}${xs.length ? " (" + Math.round(100 * ok.length / xs.length) + "%)" : ""}</td><td>${gave.length}</td><td>${xs.filter(x => x.assisted).length}</td>
+         <td>${own.length ? median(own.map(x => x.secs)) + " s" : ""}</td><td>${own.length ? median(own.map(x => x.clicks)) : ""}</td><td>${ease.length ? (ease.reduce((a, b) => a + b, 0) / ease.length).toFixed(1) + " (n=" + ease.length + ")" : ""}</td>
+         <td>${Object.keys(where).map(w => esc(w) + " × " + where[w]).join("<br>")}</td></tr>`; }).join("")}</tbody></table></div>
+     <div class="scroll"><table class="res"><thead><tr><th>Participant</th><th>Task comments</th><th>Would use</th><th>Most confusing</th><th>Missing</th></tr></thead><tbody>${ds.map(d => `<tr><td>${esc(d.participant)}<br><span class="muted">${esc(d.lang)}, ${d.device ? d.device.width + " px" : ""}, ${d.minutes} min</span></td>
+       <td>${d.tasks.filter(x => x.comment).map(x => `<b>${x.id}${x.outcome === "gaveup" ? " (gave up)" : ""}:</b> ${esc(x.comment)}`).join("<br>")}</td><td>${esc(d.post ? d.post.wouldUse : "")}</td><td>${esc(d.post ? d.post.confusing : "")}</td><td>${esc(d.post ? d.post.missing : "")}</td></tr>`).join("")}</tbody></table></div>`;
+  });
+  return `<div class="wrap app"><h1 class="h1">Usability testing</h1>
+   <p class="muted" style="margin:12px 0 28px;max-width:46em">For the team. Send a tester one of these links. They create their own profile, get five tasks, and download a results file at the end. Add <code>&amp;p=P01</code> to give each tester a code.</p>
+   <div class="panel">${link("Student, English", "?test=student")}${link("Student, Dutch", "?test=student&lang=nl")}${link("Employer, English", "?test=employer")}${link("Employer, Dutch", "?test=employer&lang=nl")}</div>
+   <h2 class="sec-title" style="margin-top:40px">Combine result files</h2>
+   <p class="sec-sub" style="max-width:46em">Choose the JSON files your testers sent back. Nothing is uploaded; the files are read in this browser only. "Completed" counts tasks the tester finished. "Set up by site" counts testers who failed an earlier task, so the site prepared this one for them.</p>
+   <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><input id="resFiles" type="file" accept=".json,application/json" multiple>
+   ${RESULTS.length ? `<button class="btn btn-plum btn-sm" data-act="csv">Download CSV</button><button class="demo-btn" data-act="clearRes">Clear</button>` : ""}</div>${out}</div>`;
+}
+
 /* ---------- Render + events ---------- */
 function render(){
   const r = route();
+  if(TEST){
+    r.side = TEST; renderTop(r);
+    const ok = TEST === "student" ? ["jobs","likes","matches","profile"] : ["candidates","likes","matches","listings","plans"];
+    if(!ok.includes(r.tab)) r.tab = ok[0];
+    const ph = S.T.phase;
+    $("#app").innerHTML = ph === "welcome" ? viewWelcome() : ph === "post" ? viewPost() : ph === "end" ? viewEnd() : !S.T.onboarded ? viewOnboard() : TEST === "student" ? viewStudent(r.tab) : viewEmployer(r.tab);
+    testTick(); return;
+  }
   if(r.side === "student" && !["jobs","likes","matches","profile"].includes(r.tab)) r.tab = "jobs";
   if(r.side === "employer" && !["candidates","likes","matches","listings","plans"].includes(r.tab)) r.tab = "candidates";
-  if(!["home","student","employer"].includes(r.side)) r.side = "home";
+  if(!["home","student","employer","testing"].includes(r.side)) r.side = "home";
   renderTop(r);
-  $("#app").innerHTML = r.side === "student" ? viewStudent(r.tab) : r.side === "employer" ? viewEmployer(r.tab) : viewHome();
+  $("#app").innerHTML = r.side === "student" ? viewStudent(r.tab) : r.side === "employer" ? viewEmployer(r.tab) : r.side === "testing" ? viewTesting() : viewHome();
 }
 function swipe(cls, fn){
   const c = $("#card"), still = matchMedia("(prefers-reduced-motion:reduce)").matches;
@@ -763,6 +1070,8 @@ function swipe(cls, fn){
 document.addEventListener("click", e => {
   const g = e.target.closest("[data-go]");
   const b = e.target.closest("[data-act]");
+  if(TEST) logClick(e, b, g);
+  if(b && testAct(b)) return;
   if(b){
     const a = b.dataset.act, d = b.dataset;
     if(a === "lang"){ S.lang = d.v; save(); render(); }
@@ -779,6 +1088,8 @@ document.addEventListener("click", e => {
     else if(a === "adv"){ const before = S.pipe[d.k].stage; advance(d.k, d.slot); if(before === 2 && route().side === "employer") toast(t("offer_sent")); render(); }
     else if(a === "pick"){ S.job = d.j; save(); if(d.to) go(d.to); else render(); }
     else if(a === "plan"){ S.plan = d.v; save(); toast(t("plan_changed", {p:t("p_" + d.v)})); if(route().side === "employer") render(); else go("employer/plans"); }
+    else if(a === "csv"){ const u = URL.createObjectURL(new Blob([resultsCsv()], {type:"text/csv"})), l = document.createElement("a"); l.href = u; l.download = "nxttalent-usability-results.csv"; document.body.appendChild(l); l.click(); l.remove(); }
+    else if(a === "clearRes"){ RESULTS = []; render(); }
     else if(a === "closeMatch"){ $("#overlay").hidden = true; if(d.to) go(d.to); }
     return;
   }
@@ -787,8 +1098,9 @@ document.addEventListener("click", e => {
 document.addEventListener("submit", e => {
   const f = e.target.closest("[data-form]"); if(!f) return; e.preventDefault();
   const fd = new FormData(f), kind = f.dataset.form;
+  if(testForm(kind, fd)) return;
   if(kind === "profile"){
-    S.profile = {fields:fd.getAll("fields"), types:fd.getAll("types"), skills:fd.getAll("skills"), city:fd.get("city"), hours:Math.max(4, Math.min(40, +fd.get("hours") || 16))};
+    S.profile = Object.assign({}, S.profile, {fields:fd.getAll("fields"), types:fd.getAll("types"), skills:fd.getAll("skills"), city:fd.get("city"), hours:Math.max(4, Math.min(40, +fd.get("hours") || 16))});
     save(); render(); toast(t("profile_saved"));
   }
   if(kind === "post"){
@@ -804,6 +1116,7 @@ document.addEventListener("submit", e => {
 document.addEventListener("keydown", e => {
   if(e.key === "Escape" && !$("#overlay").hidden) $("#overlay").hidden = true;
 });
+document.addEventListener("change", e => { if(e.target.id === "resFiles") loadResults(e.target.files); });
 render();
 </script>
 </body>
